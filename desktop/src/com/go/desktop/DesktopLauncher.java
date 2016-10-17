@@ -7,6 +7,9 @@ import com.go.GoGame;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+		config.title = "Go Game";
+		config.width = 840;
+		config.height = 640;
 		new LwjglApplication(new GoGame(), config);
 	}
 }
