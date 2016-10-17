@@ -9,7 +9,7 @@ public class DesktopLauncher {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.title = "Go Game";
 		config.width = 840;
-		config.height = 640;
+		config.height = 840;
 		new LwjglApplication(new GoGame(), config);
 	}
 }
