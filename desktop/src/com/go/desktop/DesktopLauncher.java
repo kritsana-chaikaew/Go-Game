@@ -8,8 +8,8 @@ public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.title = "Go Game";
-		config.width = 840;
-		config.height = 840;
+		config.width = GoGame.SCREEN_WIDTH;
+		config.height = GoGame.SCREEN_HEIGHT;
 		new LwjglApplication(new GoGame(), config);
 	}
 }

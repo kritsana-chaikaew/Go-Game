@@ -7,16 +7,23 @@ import com.badlogic.gdx.graphics.GL20;
 
 public class GameScreen extends ScreenAdapter{
   GoGame game;
+  Board board;
   BoardRenderer boardRenderer;
   public GameScreen (GoGame game) {
     this.game = game;
 
-    boardRenderer = new BoardRenderer(game);
+    board = new Board();
+    boardRenderer = new BoardRenderer(game, board);
   }
 
   @Override
   public void render (float delta) {
     draw();
+    update(delta);
+  }
+
+  public void update (float delta) {
+    board.update(delta);
   }
 
   public void draw () {
