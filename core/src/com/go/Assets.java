@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 
 public class Assets {
   public static Texture tileBackGroundImage;
+
   public static Texture tileCenterImage;
   public static Texture tileLeftDownCornerImage;
   public static Texture tileLeftTopCornerImage;
@@ -14,13 +15,18 @@ public class Assets {
   public static Texture tileRightSideImage;
   public static Texture tileTopSidImage;
   public static Texture tileDownSideImage;
+
   public static Texture tileBlackImage;
   public static Texture tileWhiteImage;
+
   public static Texture tileWoodImage;
   public static Texture tileClayImage;
   public static Texture tileIronImage;
   public static Texture tileCropImage;
+
   public static Texture tileHoverImage;
+
+  public static Texture workerImage;
 
 
   public static Texture loadTexture (String file) {
@@ -29,6 +35,7 @@ public class Assets {
 
   public static void load () {
     tileBackGroundImage = loadTexture("background.png");
+
     tileCenterImage = loadTexture("tile_center.png");
     tileLeftDownCornerImage = loadTexture("tile_corner1.png");
     tileLeftTopCornerImage = loadTexture("tile_corner2.png");
@@ -38,12 +45,17 @@ public class Assets {
     tileRightSideImage = loadTexture("tile_side3.png");
     tileTopSidImage = loadTexture("tile_side2.png");
     tileDownSideImage = loadTexture("tile_side4.png");
+
     tileBlackImage = loadTexture("black.png");
     tileWhiteImage = loadTexture("white.png");
+
     tileWoodImage = loadTexture("wood.png");
     tileClayImage = loadTexture("clay.png");
     tileIronImage = loadTexture("iron.png");
     tileCropImage = loadTexture("crop.png");
+
     tileHoverImage = loadTexture("hover.png");
+
+    workerImage = loadTexture("worker.png");
   }
 }

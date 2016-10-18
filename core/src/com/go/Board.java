@@ -89,14 +89,15 @@ public class Board {
   public void onClick () {
     if (Gdx.input.isButtonPressed(Buttons.LEFT)) {
       Tile tile = getTileOnHover();
-      if (tile != null) {
+      if (tile != null && tile.getStoneLayer() == Tile.EMPTY) {
         tile.setStoneLayer(Tile.BLACK);
       }
     }
     if (Gdx.input.isButtonPressed(Buttons.RIGHT)) {
       Tile tile = getTileOnHover();
-      if (tile != null) {
-        tile.setStoneLayer(Tile.EMPTY);
+      if (tile != null && tile.getStoneLayer() == Tile.EMPTY) {
+        tile.setTroopLayer(Tile.WORKER);
+        tile.setStoneLayer(Tile.WHITE);
       }
     }
   }

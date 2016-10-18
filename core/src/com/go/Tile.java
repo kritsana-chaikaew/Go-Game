@@ -10,24 +10,27 @@ public class Tile {
   public static final int IRON = 3;
   public static final int CROP = 4;
 
-  public static final int BLACK = 5;
-  public static final int WHITE = 6;
+  public static final int CENTER = 5;
+  public static final int LEFT_DOWN_CORNER = 6;
+  public static final int LEFT_TOP_CORNER = 7;
+  public static final int RIGHT_DOWN_CORNER = 8;
+  public static final int RIGHT_TOP_CORNER = 9;
+  public static final int LEFT_SIDE = 10;
+  public static final int RIGHT_SIDE = 11;
+  public static final int TOP_SIDE = 12;
+  public static final int DOWN_SIDE = 13;
 
-  public static final int CENTER = 7;
-  public static final int LEFT_DOWN_CORNER = 8;
-  public static final int LEFT_TOP_CORNER = 9;
-  public static final int RIGHT_DOWN_CORNER = 10;
-  public static final int RIGHT_TOP_CORNER = 11;
-  public static final int LEFT_SIDE = 12;
-  public static final int RIGHT_SIDE = 13;
-  public static final int TOP_SIDE = 14;
-  public static final int DOWN_SIDE = 15;
+  public static final int BLACK = 14;
+  public static final int WHITE = 15;
+
+  public static final int WORKER = 16;
 
   private int row;
   private int column;
   private int boardLayer = EMPTY;
   private int resourceLayer = EMPTY;
   private int stoneLayer = EMPTY;
+  private int troopLayer = EMPTY;
 
   public Tile (int row, int column) {
     this.row = row;
@@ -64,6 +67,14 @@ public class Tile {
 
   public int getResourceLayer () {
     return resourceLayer;
+  }
+
+  public void setTroopLayer (int troopLayer) {
+    this.troopLayer = troopLayer;
+  }
+
+  public int getTroopLayer () {
+    return troopLayer;
   }
 
 }

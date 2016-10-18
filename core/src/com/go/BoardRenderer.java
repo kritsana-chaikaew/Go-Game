@@ -10,6 +10,7 @@ public class BoardRenderer {
   private Texture stoneLayerImage;
   private Texture resourceLayerImage;
   private Texture tileHoverImage;
+  private Texture troopLayerImage;
 
   public BoardRenderer (GoGame game, Board board) {
     this.game = game;
@@ -28,6 +29,7 @@ public class BoardRenderer {
         renderResourceLayer(board.tiles[i][j]);
         renderBoardLayer(board.tiles[i][j]);
         renderStoneLayer(board.tiles[i][j]);
+        renderTroopLayer(board.tiles[i][j]);
 
         game.batch.begin();
 
@@ -43,6 +45,10 @@ public class BoardRenderer {
 
         if (board.tiles[i][j] == board.tileHover) {
           game.batch.draw(Assets.tileHoverImage, i * Tile.BLOCK_SIZE, j * Tile.BLOCK_SIZE);
+        }
+
+        if (board.tiles[i][j].getTroopLayer() != Tile.EMPTY) {
+          game.batch.draw(troopLayerImage, i * Tile.BLOCK_SIZE, j * Tile.BLOCK_SIZE);
         }
 
         game.batch.end();
@@ -98,6 +104,12 @@ public class BoardRenderer {
       } else if (tile.getStoneLayer() == Tile.WHITE) {
         stoneLayerImage = Assets.tileWhiteImage;
       }
+    }
+  }
+
+  public void renderTroopLayer (Tile tile) {
+    if (tile.getTroopLayer() == Tile.WORKER) {
+      troopLayerImage = Assets.workerImage;
     }
   }
 
