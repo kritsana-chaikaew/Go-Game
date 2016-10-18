@@ -3,6 +3,7 @@ package com.go;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.Input.Buttons;
 
 public class Board {
   public static final int BOARD_SIZE = 11;
@@ -14,6 +15,12 @@ public class Board {
 
   public Board () {
     setup();
+
+    // CUATION!!! NUMBER ALL RESOURCE MUST NOT EXCEED NUMBER OF TILES
+    randomResource(Tile.WOOD, 5);
+    randomResource(Tile.CLAY, 5);
+    randomResource(Tile.IRON, 5);
+    randomResource(Tile.CROP, 5);
   }
 
   public void update (float delta) {
@@ -63,7 +70,9 @@ public class Board {
   public Tile getTileOnHover () {
     int row = Gdx.input.getX() / Tile.BLOCK_SIZE;
     int column = ( GoGame.SCREEN_HEIGHT - Gdx.input.getY() ) / Tile.BLOCK_SIZE;
-    if (row < BOARD_SIZE && column < BOARD_SIZE && tiles[row][column] != null) {
+    if (row >= 0 && row < BOARD_SIZE
+        &&  column >= 0 && column < BOARD_SIZE) {
+      System.out.println(row + " " + column);
       return tiles[row][column];
     } else {
       return null;
@@ -78,9 +87,35 @@ public class Board {
   }
 
   public void onClick () {
-    if (Gdx.input.justTouched()) {
+    if (Gdx.input.isButtonPressed(Buttons.LEFT)) {
       Tile tile = getTileOnHover();
-      tile.setStoneLayer(Tile.BLACK);
+      if (tile != null) {
+        tile.setStoneLayer(Tile.BLACK);
+      }
     }
+    if (Gdx.input.isButtonPressed(Buttons.RIGHT)) {
+      Tile tile = getTileOnHover();
+      if (tile != null) {
+        tile.setStoneLayer(Tile.EMPTY);
+      }
+    }
+  }
+
+  public Tile randomTile () {
+    return tiles[MathUtils.random(BOARD_SIZE - 1)][MathUtils.random(BOARD_SIZE - 1)];
+  }
+
+  public void randomResource (int resourceLayer, int num) {
+    int i = 0;
+    while (i < num) {
+      Tile randomTile = randomTile();
+      if (randomTile.getResourceLayer() == Tile.EMPTY
+          && randomTile.getRow() != 0
+          && randomTile.getColumn() != 0) {
+        randomTile.setResourceLayer(resourceLayer);
+        i++;
+      }
+    }
+
   }
 }

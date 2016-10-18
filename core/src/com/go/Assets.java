@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 
 public class Assets {
+  public static Texture tileBackGroundImage;
   public static Texture tileCenterImage;
   public static Texture tileLeftDownCornerImage;
   public static Texture tileLeftTopCornerImage;
@@ -27,6 +28,7 @@ public class Assets {
 	}
 
   public static void load () {
+    tileBackGroundImage = loadTexture("background.png");
     tileCenterImage = loadTexture("tile_center.png");
     tileLeftDownCornerImage = loadTexture("tile_corner1.png");
     tileLeftTopCornerImage = loadTexture("tile_corner2.png");

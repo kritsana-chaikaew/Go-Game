@@ -5,13 +5,13 @@ public class Tile {
 
   public static final int EMPTY = 0;
 
-  public static final int BLACK = 1;
-  public static final int WHITE = 2;
+  public static final int WOOD = 1;
+  public static final int CLAY = 2;
+  public static final int IRON = 3;
+  public static final int CROP = 4;
 
-  public static final int WOOD = 3;
-  public static final int CLAY = 4;
-  public static final int IRON = 5;
-  public static final int CROP = 6;
+  public static final int BLACK = 5;
+  public static final int WHITE = 6;
 
   public static final int CENTER = 7;
   public static final int LEFT_DOWN_CORNER = 8;
