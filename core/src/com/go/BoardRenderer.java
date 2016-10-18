@@ -6,10 +6,9 @@ public class BoardRenderer {
   GoGame game;
   Board board;
 
+  private Texture resourceLayerImage;
   private Texture boardLayerImage;
   private Texture stoneLayerImage;
-  private Texture resourceLayerImage;
-  private Texture tileHoverImage;
   private Texture troopLayerImage;
 
   public BoardRenderer (GoGame game, Board board) {
@@ -26,6 +25,9 @@ public class BoardRenderer {
     for (int i = 0; i < Board.BOARD_SIZE; i ++) {
       for (int j = 0; j < Board.BOARD_SIZE; j++) {
 
+        int x = i * Tile.BLOCK_SIZE;
+        int y = j * Tile.BLOCK_SIZE;
+
         renderResourceLayer(board.tiles[i][j]);
         renderBoardLayer(board.tiles[i][j]);
         renderStoneLayer(board.tiles[i][j]);
@@ -33,22 +35,14 @@ public class BoardRenderer {
 
         game.batch.begin();
 
-        game.batch.draw(resourceLayerImage, i * Tile.BLOCK_SIZE, j * Tile.BLOCK_SIZE);
+        game.batch.draw(resourceLayerImage, x, y);
+        game.batch.draw(boardLayerImage, x, y);
 
-        if (board.tiles[i][j].getBoardLayer() != Tile.EMPTY) {
-          game.batch.draw(boardLayerImage, i * Tile.BLOCK_SIZE, j * Tile.BLOCK_SIZE);
-        }
-
-        if (board.tiles[i][j].getStoneLayer() != Tile.EMPTY) {
-          game.batch.draw(stoneLayerImage, i * Tile.BLOCK_SIZE, j * Tile.BLOCK_SIZE);
-        }
+        drawLayer(board.tiles[i][j].getStoneLayer(), stoneLayerImage , x, y);
+        drawLayer(board.tiles[i][j].getTroopLayer(), troopLayerImage , x, y);
 
         if (board.tiles[i][j] == board.tileHover) {
-          game.batch.draw(Assets.tileHoverImage, i * Tile.BLOCK_SIZE, j * Tile.BLOCK_SIZE);
-        }
-
-        if (board.tiles[i][j].getTroopLayer() != Tile.EMPTY) {
-          game.batch.draw(troopLayerImage, i * Tile.BLOCK_SIZE, j * Tile.BLOCK_SIZE);
+          game.batch.draw(Assets.tileHoverImage, x, y);
         }
 
         game.batch.end();
@@ -56,6 +50,12 @@ public class BoardRenderer {
       }
     }
 
+  }
+
+  public void drawLayer (int layer, Texture image, int x, int y) {
+    if (layer != Tile.EMPTY) {
+      game.batch.draw(image, x, y);
+    }
   }
 
   public void renderResourceLayer (Tile tile) {

@@ -1,26 +1,17 @@
 package com.go;
 
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.Input.Buttons;
+import com.badlogic.gdx.math.MathUtils;
 
 public class Board {
-  public static final int BOARD_SIZE = 11;
+  public static final int BOARD_SIZE = 10;
 
   Tile [][] tiles;
   Tile tileHover;
 
-  public int random;
-
   public Board () {
     setup();
-
-    // CUATION!!! NUMBER ALL RESOURCE MUST NOT EXCEED NUMBER OF TILES
-    randomResource(Tile.WOOD, 5);
-    randomResource(Tile.CLAY, 5);
-    randomResource(Tile.IRON, 5);
-    randomResource(Tile.CROP, 5);
   }
 
   public void update (float delta) {
@@ -65,6 +56,12 @@ public class Board {
         tiles[i][j].setResourceLayer(resourceLayer);
       }
     }
+
+    // CUATION!!! NUMBER ALL RESOURCE MUST NOT EXCEED NUMBER OF TILES
+    randomResource(Tile.WOOD, 5);
+    randomResource(Tile.CLAY, 5);
+    randomResource(Tile.IRON, 5);
+    randomResource(Tile.CROP, 5);
   }
 
   public Tile getTileOnHover () {
@@ -72,7 +69,6 @@ public class Board {
     int column = ( GoGame.SCREEN_HEIGHT - Gdx.input.getY() ) / Tile.BLOCK_SIZE;
     if (row >= 0 && row < BOARD_SIZE
         &&  column >= 0 && column < BOARD_SIZE) {
-      System.out.println(row + " " + column);
       return tiles[row][column];
     } else {
       return null;
