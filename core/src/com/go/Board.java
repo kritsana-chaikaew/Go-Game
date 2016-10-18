@@ -10,7 +10,12 @@ public class Board {
   Tile [][] tiles;
   Tile tileHover;
 
-  public Board () {
+  public int offsetX;
+  public int offsetY;
+
+  public Board (int x, int y) {
+    offsetX = x / 64 * 64;
+    offsetY = y / 64 * 64;
     setup();
   }
 
@@ -65,8 +70,9 @@ public class Board {
   }
 
   public Tile getTileOnHover () {
-    int row = Gdx.input.getX() / Tile.BLOCK_SIZE;
-    int column = ( GoGame.SCREEN_HEIGHT - Gdx.input.getY() ) / Tile.BLOCK_SIZE;
+    int row = (Gdx.input.getX() - offsetX) / Tile.BLOCK_SIZE;
+    int column = ( ( GoGame.SCREEN_HEIGHT - Gdx.input.getY() ) - offsetY )
+        / Tile.BLOCK_SIZE;
     if (row >= 0 && row < BOARD_SIZE
         &&  column >= 0 && column < BOARD_SIZE) {
       return tiles[row][column];

@@ -25,8 +25,8 @@ public class BoardRenderer {
     for (int i = 0; i < Board.BOARD_SIZE; i ++) {
       for (int j = 0; j < Board.BOARD_SIZE; j++) {
 
-        int x = i * Tile.BLOCK_SIZE;
-        int y = j * Tile.BLOCK_SIZE;
+        int x = i * Tile.BLOCK_SIZE + board.offsetX;
+        int y = j * Tile.BLOCK_SIZE + board.offsetY;
 
         renderResourceLayer(board.tiles[i][j]);
         renderBoardLayer(board.tiles[i][j]);
