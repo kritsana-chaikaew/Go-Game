@@ -12,6 +12,7 @@ public class GoGame extends Game {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
+		Assets.load();
 		setScreen(new GameScreen(this));
 	}
 
