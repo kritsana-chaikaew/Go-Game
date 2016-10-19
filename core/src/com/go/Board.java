@@ -7,8 +7,9 @@ import com.badlogic.gdx.math.MathUtils;
 public class Board {
   public static final int BOARD_SIZE = 10;
 
-  Tile [][] tiles;
-  Tile tileHover;
+  Block blockHover;
+
+  Block [][] blocks;
 
   public int offsetX;
   public int offsetY;
@@ -16,7 +17,7 @@ public class Board {
   public Board (int x, int y) {
     offsetX = x / 64 * 64;
     offsetY = y / 64 * 64;
-    setup();
+    setupGrid();
   }
 
   public void update (float delta) {
@@ -24,98 +25,96 @@ public class Board {
     onClick();
   }
 
-  public void setup () {
-    tiles = new Tile [BOARD_SIZE][BOARD_SIZE];
+  public void setupGrid () {
+    blocks = new Block[BOARD_SIZE][BOARD_SIZE];
 
     for (int i = 0; i < BOARD_SIZE; i++) {
       for (int j = 0; j < BOARD_SIZE; j++) {
 
-        int boardLayer = Tile.EMPTY;
-        int stoneLayer = Tile.EMPTY;
-        int resourceLayer = Tile.EMPTY;
+        Grid gridLayer;
 
         if ( (i == 0 && j == 0)) {
-          boardLayer = Tile.LEFT_DOWN_CORNER;
+          gridLayer = Grid.LEFT_DOWN_CORNER;
         } else if ( i == 0 && j == BOARD_SIZE - 1 ) {
-          boardLayer = Tile.LEFT_TOP_CORNER;
+          gridLayer = Grid.LEFT_TOP_CORNER;
         } else if ( i == BOARD_SIZE - 1 && j == 0 ) {
-          boardLayer = Tile.RIGHT_DOWN_CORNER;
+          gridLayer = Grid.RIGHT_DOWN_CORNER;
         } else if ( i == BOARD_SIZE - 1 && j == BOARD_SIZE - 1 ) {
-          boardLayer = Tile.RIGHT_TOP_CORNER;
+          gridLayer = Grid.RIGHT_TOP_CORNER;
         } else if ( i == 0 ) {
-          boardLayer = Tile.LEFT_SIDE;
+          gridLayer = Grid.LEFT_SIDE;
         } else if ( i == BOARD_SIZE - 1 ) {
-          boardLayer = Tile.RIGHT_SIDE;
+          gridLayer = Grid.RIGHT_SIDE;
         } else if ( j == 0 ) {
-          boardLayer = Tile.DOWN_SIDE;
+          gridLayer = Grid.DOWN_SIDE;
         } else if ( j == BOARD_SIZE - 1 ) {
-          boardLayer = Tile.TOP_SIDE;
+          gridLayer = Grid.TOP_SIDE;
         } else {
-          boardLayer = Tile.CENTER;
+          gridLayer = Grid.CENTER;
         }
 
 
-        tiles[i][j] = new Tile(i, j);
-        tiles[i][j].setBoardLayer(boardLayer);
-        tiles[i][j].setStoneLayer(stoneLayer);
-        tiles[i][j].setResourceLayer(resourceLayer);
+        blocks[i][j] = new Block(i, j);
+        if (gridLayer != null) {
+          blocks[i][j].setGridLayer(gridLayer);
+        }
       }
     }
 
-    // CUATION!!! NUMBER ALL RESOURCE MUST NOT EXCEED NUMBER OF TILES
-    randomResource(Tile.WOOD, 5);
-    randomResource(Tile.CLAY, 5);
-    randomResource(Tile.IRON, 5);
-    randomResource(Tile.CROP, 5);
+    // CUATION!!! NUMBER ALL RESOURCE MUST NOT EXCEED NUMBER OF BLOCKS
+    randomResource(Resource.WOOD, 5);
+    randomResource(Resource.CLAY, 5);
+    randomResource(Resource.IRON, 5);
+    randomResource(Resource.CROP, 5);
   }
 
-  public Tile getTileOnHover () {
-    int row = (Gdx.input.getX() - offsetX) / Tile.BLOCK_SIZE;
+  public Block getBlockOnHover () {
+    int row = (Gdx.input.getX() - offsetX) / Block.BLOCK_SIZE;
     int column = ( ( GoGame.SCREEN_HEIGHT - Gdx.input.getY() ) - offsetY )
-        / Tile.BLOCK_SIZE;
+        / Block.BLOCK_SIZE;
     if (row >= 0 && row < BOARD_SIZE
         &&  column >= 0 && column < BOARD_SIZE) {
-      return tiles[row][column];
+      return blocks[row][column];
     } else {
       return null;
     }
   }
 
   public void onHover () {
-    Tile tile = getTileOnHover();
-    if (tile != null) {
-      tileHover = tile;
+    Block block = getBlockOnHover();
+    if (block!= null) {
+      blockHover = block;
     }
   }
 
   public void onClick () {
     if (Gdx.input.isButtonPressed(Buttons.LEFT)) {
-      Tile tile = getTileOnHover();
-      if (tile != null && tile.getStoneLayer() == Tile.EMPTY) {
-        tile.setStoneLayer(Tile.BLACK);
+      Block block= getBlockOnHover();
+      if (block != null && block.getStoneLayer() == Stone.EMPTY_STONE) {
+        block.setStoneLayer(Stone.BLACK);
       }
     }
     if (Gdx.input.isButtonPressed(Buttons.RIGHT)) {
-      Tile tile = getTileOnHover();
-      if (tile != null && tile.getStoneLayer() == Tile.EMPTY) {
-        tile.setTroopLayer(Tile.WORKER);
-        tile.setStoneLayer(Tile.WHITE);
+      Block block = getBlockOnHover();
+      if (block != null && block.getStoneLayer() == Stone.EMPTY_STONE) {
+        block.setTroopLayer(Troop.WORKER);
+        block.setStoneLayer(Stone.WHITE);
       }
     }
   }
 
-  public Tile randomTile () {
-    return tiles[MathUtils.random(BOARD_SIZE - 1)][MathUtils.random(BOARD_SIZE - 1)];
+  public Block randomBlock () {
+    return blocks[MathUtils.random(BOARD_SIZE - 1)][MathUtils.random(BOARD_SIZE - 1)];
   }
 
-  public void randomResource (int resourceLayer, int num) {
+  public void randomResource (Resource resourceLayer, int num) {
     int i = 0;
     while (i < num) {
-      Tile randomTile = randomTile();
-      if (randomTile.getResourceLayer() == Tile.EMPTY
-          && randomTile.getRow() != 0
-          && randomTile.getColumn() != 0) {
-        randomTile.setResourceLayer(resourceLayer);
+      Block randomBlock = randomBlock();
+      if (randomBlock.getResourceLayer() == Resource.EMPTY_RESOURCE
+          && randomBlock.getRow() != 0
+          && randomBlock.getColumn() != 0) {
+        randomBlock.setResourceLayer(resourceLayer);
         i++;
       }
     }

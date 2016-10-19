@@ -14,10 +14,6 @@ public class BoardRenderer {
   public BoardRenderer (GoGame game, Board board) {
     this.game = game;
     this.board = board;
-
-    boardLayerImage = Assets.tileCenterImage;
-    stoneLayerImage = Assets.tileBlackImage;
-    resourceLayerImage = Assets.tileWoodImage;
   }
 
   public void render () {
@@ -25,24 +21,24 @@ public class BoardRenderer {
     for (int i = 0; i < Board.BOARD_SIZE; i ++) {
       for (int j = 0; j < Board.BOARD_SIZE; j++) {
 
-        int x = i * Tile.BLOCK_SIZE + board.offsetX;
-        int y = j * Tile.BLOCK_SIZE + board.offsetY;
+        int x = i * Block.BLOCK_SIZE + board.offsetX;
+        int y = j * Block.BLOCK_SIZE + board.offsetY;
 
-        renderResourceLayer(board.tiles[i][j]);
-        renderBoardLayer(board.tiles[i][j]);
-        renderStoneLayer(board.tiles[i][j]);
-        renderTroopLayer(board.tiles[i][j]);
+        renderResourceLayer(board.blocks[i][j]);
+        renderGridLayer(board.blocks[i][j]);
+        renderStoneLayer(board.blocks[i][j]);
+        renderTroopLayer(board.blocks[i][j]);
 
         game.batch.begin();
 
         game.batch.draw(resourceLayerImage, x, y);
         game.batch.draw(boardLayerImage, x, y);
 
-        drawLayer(board.tiles[i][j].getStoneLayer(), stoneLayerImage , x, y);
-        drawLayer(board.tiles[i][j].getTroopLayer(), troopLayerImage , x, y);
+        drawStoneLayer(board.blocks[i][j].getStoneLayer(), stoneLayerImage , x, y);
+        drawTroopLayer(board.blocks[i][j].getTroopLayer(), troopLayerImage , x, y);
 
-        if (board.tiles[i][j] == board.tileHover) {
-          game.batch.draw(Assets.tileHoverImage, x, y);
+        if (board.blocks[i][j] == board.blockHover) {
+          game.batch.draw(Assets.hoverImage, x, y);
         }
 
         game.batch.end();
@@ -52,63 +48,69 @@ public class BoardRenderer {
 
   }
 
-  public void drawLayer (int layer, Texture image, int x, int y) {
-    if (layer != Tile.EMPTY) {
+  public void drawStoneLayer (Stone layer, Texture image, int x, int y) {
+    if (layer != Stone.EMPTY_STONE) {
       game.batch.draw(image, x, y);
     }
   }
 
-  public void renderResourceLayer (Tile tile) {
-    if (tile.getResourceLayer() == Tile.EMPTY) {
-      resourceLayerImage = Assets.tileBackGroundImage;
-    } else if (tile.getResourceLayer() == Tile.WOOD) {
-      resourceLayerImage = Assets.tileWoodImage;
-    } else if (tile.getResourceLayer() == Tile.CLAY) {
-      resourceLayerImage = Assets.tileClayImage;
-    } else if (tile.getResourceLayer() == Tile.IRON) {
-      resourceLayerImage = Assets.tileIronImage;
-    } else if (tile.getResourceLayer() == Tile.CROP) {
-      resourceLayerImage = Assets.tileCropImage;
+  public void drawTroopLayer (Troop layer, Texture image, int x, int y) {
+    if (layer != Troop.EMPTY_TROOP) {
+      game.batch.draw(image, x, y);
     }
   }
 
-  public void renderBoardLayer (Tile tile) {
-    if (tile.getBoardLayer() != Tile.EMPTY) {
-      if (tile.getBoardLayer() == Tile.CENTER) {
-        boardLayerImage = Assets.tileCenterImage;
-      } else if (tile.getBoardLayer() == Tile.LEFT_DOWN_CORNER) {
-        boardLayerImage = Assets.tileLeftDownCornerImage;
-      } else if (tile.getBoardLayer() == Tile.LEFT_TOP_CORNER) {
-        boardLayerImage = Assets.tileLeftTopCornerImage;
-      } else if (tile.getBoardLayer() == Tile.RIGHT_DOWN_CORNER) {
-        boardLayerImage = Assets.tileRightDownCornerImage;
-      } else if (tile.getBoardLayer() == Tile.RIGHT_TOP_CORNER) {
-        boardLayerImage = Assets.tileRiightTopCornerImage;
-      } else if (tile.getBoardLayer() == Tile.LEFT_SIDE) {
-        boardLayerImage = Assets.tileLeftSideImage;
-      } else if (tile.getBoardLayer() == Tile.RIGHT_SIDE) {
-        boardLayerImage = Assets.tileRightSideImage;
-      } else if (tile.getBoardLayer() == Tile.DOWN_SIDE) {
-        boardLayerImage = Assets.tileDownSideImage;
-      } else if (tile.getBoardLayer() == Tile.TOP_SIDE) {
-        boardLayerImage = Assets.tileTopSidImage;
+  public void renderResourceLayer (Block block) {
+    if (block.getResourceLayer() == Resource.EMPTY_RESOURCE) {
+      resourceLayerImage = Assets.backGroundImage;
+    } else if (block.getResourceLayer() == Resource.WOOD) {
+      resourceLayerImage = Assets.woodImage;
+    } else if (block.getResourceLayer() == Resource.CLAY) {
+      resourceLayerImage = Assets.clayImage;
+    } else if (block.getResourceLayer() == Resource.IRON) {
+      resourceLayerImage = Assets.ironImage;
+    } else if (block.getResourceLayer() == Resource.CROP) {
+      resourceLayerImage = Assets.cropImage;
+    }
+  }
+
+  public void renderGridLayer (Block block) {
+    if (block.getGridLayer() != Grid.EMPTY_GRID) {
+      if (block.getGridLayer() == Grid.CENTER) {
+        boardLayerImage = Assets.centerImage;
+      } else if (block.getGridLayer() == Grid.LEFT_DOWN_CORNER) {
+        boardLayerImage = Assets.leftDownCornerImage;
+      } else if (block.getGridLayer() == Grid.LEFT_TOP_CORNER) {
+        boardLayerImage = Assets.leftTopCornerImage;
+      } else if (block.getGridLayer() == Grid.RIGHT_DOWN_CORNER) {
+        boardLayerImage = Assets.rightDownCornerImage;
+      } else if (block.getGridLayer() == Grid.RIGHT_TOP_CORNER) {
+        boardLayerImage = Assets.riightTopCornerImage;
+      } else if (block.getGridLayer() == Grid.LEFT_SIDE) {
+        boardLayerImage = Assets.leftSideImage;
+      } else if (block.getGridLayer() == Grid.RIGHT_SIDE) {
+        boardLayerImage = Assets.rightSideImage;
+      } else if (block.getGridLayer() == Grid.DOWN_SIDE) {
+        boardLayerImage = Assets.downSideImage;
+      } else if (block.getGridLayer() == Grid.TOP_SIDE) {
+        boardLayerImage = Assets.topSideImage;
       }
     }
 
   }
 
-  public void renderStoneLayer (Tile tile) {
-    if (tile.getStoneLayer() != Tile.EMPTY) {
-      if (tile.getStoneLayer() == Tile.BLACK) {
-        stoneLayerImage = Assets.tileBlackImage;
-      } else if (tile.getStoneLayer() == Tile.WHITE) {
-        stoneLayerImage = Assets.tileWhiteImage;
+  public void renderStoneLayer (Block block) {
+    if (block.getStoneLayer() != Stone.EMPTY_STONE) {
+      if (block.getStoneLayer() == Stone.BLACK) {
+        stoneLayerImage = Assets.blackStoneImage;
+      } else if (block.getStoneLayer() == Stone.WHITE) {
+        stoneLayerImage = Assets.whiteStoneImage;
       }
     }
   }
 
-  public void renderTroopLayer (Tile tile) {
-    if (tile.getTroopLayer() == Tile.WORKER) {
+  public void renderTroopLayer (Block block) {
+    if (block.getTroopLayer() == Troop.WORKER) {
       troopLayerImage = Assets.workerImage;
     }
   }

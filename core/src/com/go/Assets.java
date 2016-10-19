@@ -4,27 +4,27 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 
 public class Assets {
-  public static Texture tileBackGroundImage;
+  public static Texture backGroundImage;
 
-  public static Texture tileCenterImage;
-  public static Texture tileLeftDownCornerImage;
-  public static Texture tileLeftTopCornerImage;
-  public static Texture tileRightDownCornerImage;
-  public static Texture tileRiightTopCornerImage;
-  public static Texture tileLeftSideImage;
-  public static Texture tileRightSideImage;
-  public static Texture tileTopSidImage;
-  public static Texture tileDownSideImage;
+  public static Texture centerImage;
+  public static Texture leftDownCornerImage;
+  public static Texture leftTopCornerImage;
+  public static Texture rightDownCornerImage;
+  public static Texture riightTopCornerImage;
+  public static Texture leftSideImage;
+  public static Texture rightSideImage;
+  public static Texture topSideImage;
+  public static Texture downSideImage;
 
-  public static Texture tileBlackImage;
-  public static Texture tileWhiteImage;
+  public static Texture blackStoneImage;
+  public static Texture whiteStoneImage;
 
-  public static Texture tileWoodImage;
-  public static Texture tileClayImage;
-  public static Texture tileIronImage;
-  public static Texture tileCropImage;
+  public static Texture woodImage;
+  public static Texture clayImage;
+  public static Texture ironImage;
+  public static Texture cropImage;
 
-  public static Texture tileHoverImage;
+  public static Texture hoverImage;
 
   public static Texture workerImage;
 
@@ -34,27 +34,27 @@ public class Assets {
 	}
 
   public static void load () {
-    tileBackGroundImage = loadTexture("tile_background.png");
+    backGroundImage = loadTexture("background.png");
 
-    tileCenterImage = loadTexture("tile_center.png");
-    tileLeftDownCornerImage = loadTexture("tile_corner1.png");
-    tileLeftTopCornerImage = loadTexture("tile_corner2.png");
-    tileRightDownCornerImage = loadTexture("tile_corner3.png");
-    tileRiightTopCornerImage = loadTexture("tile_corner4.png");
-    tileLeftSideImage = loadTexture("tile_side1.png");
-    tileRightSideImage = loadTexture("tile_side3.png");
-    tileTopSidImage = loadTexture("tile_side2.png");
-    tileDownSideImage = loadTexture("tile_side4.png");
+    centerImage = loadTexture("center.png");
+    leftDownCornerImage = loadTexture("corner1.png");
+    leftTopCornerImage = loadTexture("corner2.png");
+    rightDownCornerImage = loadTexture("corner3.png");
+    riightTopCornerImage = loadTexture("corner4.png");
+    leftSideImage = loadTexture("side1.png");
+    rightSideImage = loadTexture("side3.png");
+    topSideImage = loadTexture("side2.png");
+    downSideImage = loadTexture("side4.png");
 
-    tileBlackImage = loadTexture("black.png");
-    tileWhiteImage = loadTexture("white.png");
+    blackStoneImage = loadTexture("black.png");
+    whiteStoneImage = loadTexture("white.png");
 
-    tileWoodImage = loadTexture("wood.png");
-    tileClayImage = loadTexture("clay.png");
-    tileIronImage = loadTexture("iron.png");
-    tileCropImage = loadTexture("crop.png");
+    woodImage = loadTexture("wood.png");
+    clayImage = loadTexture("clay.png");
+    ironImage = loadTexture("iron.png");
+    cropImage = loadTexture("crop.png");
 
-    tileHoverImage = loadTexture("hover.png");
+    hoverImage = loadTexture("hover.png");
 
     workerImage = loadTexture("worker.png");
   }

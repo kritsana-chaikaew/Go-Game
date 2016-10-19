@@ -12,25 +12,25 @@ public class PanelRenderer {
 
   public void render () {
     game.batch.begin();
-    drawBlock(Assets.tileWoodImage, 2, 0);
-    drawBlock(Assets.tileClayImage, 3, 0);
-    drawBlock(Assets.tileIronImage, 4, 0);
-    drawBlock(Assets.tileCropImage, 5, 0);
+    drawBlock(Assets.woodImage, 2, 0);
+    drawBlock(Assets.clayImage, 3, 0);
+    drawBlock(Assets.ironImage, 4, 0);
+    drawBlock(Assets.cropImage, 5, 0);
 
-    drawBlock(Assets.tileBlackImage, 3, 2);
+    drawBlock(Assets.blackStoneImage, 3, 2);
     drawBlock(Assets.workerImage, 3, 2);
 
-    drawBlock(Assets.tileBlackImage, 3, 3);
+    drawBlock(Assets.blackStoneImage, 3, 3);
     drawBlock(Assets.workerImage, 3, 3);
 
-    drawBlock(Assets.tileBlackImage, 3, 4);
+    drawBlock(Assets.blackStoneImage, 3, 4);
     drawBlock(Assets.workerImage, 3, 4);
     game.batch.end();
   }
 
   public void drawBlock (Texture image, int row, int column) {
-    game.batch.draw(image, panel.getX() + (Tile.BLOCK_SIZE * row),
-                    GoGame.SCREEN_HEIGHT- (Tile.BLOCK_SIZE * (column + 1) ) );
+    game.batch.draw(image, panel.getX() + (Block.BLOCK_SIZE * row),
+                    GoGame.SCREEN_HEIGHT- (Block.BLOCK_SIZE * (column + 1) ) );
   }
 
 
