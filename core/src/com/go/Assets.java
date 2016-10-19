@@ -34,7 +34,7 @@ public class Assets {
 	}
 
   public static void load () {
-    tileBackGroundImage = loadTexture("background.png");
+    tileBackGroundImage = loadTexture("tile_background.png");
 
     tileCenterImage = loadTexture("tile_center.png");
     tileLeftDownCornerImage = loadTexture("tile_corner1.png");
