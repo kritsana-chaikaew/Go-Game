@@ -49,13 +49,13 @@ public class BoardRenderer {
   }
 
   public void drawStoneLayer (Stone layer, Texture image, int x, int y) {
-    if (layer != Stone.EMPTY_STONE) {
+    if (layer != Stone.EMPTY_STONE && image != null) {
       game.batch.draw(image, x, y);
     }
   }
 
   public void drawTroopLayer (Troop layer, Texture image, int x, int y) {
-    if (layer != Troop.EMPTY_TROOP) {
+    if (layer != Troop.EMPTY_TROOP && image != null) {
       game.batch.draw(image, x, y);
     }
   }
