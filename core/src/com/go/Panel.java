@@ -48,7 +48,7 @@ public class Panel {
     resourceBlocks[4][0].setResourceLayer(Resource.CROP);
 
     stoneBlocks[2][2].setStoneLayer(Stone.BLACK);
-    stoneBlocks[3][2].setStoneLayer(Stone.BLACK);
+    stoneBlocks[3][2].setStoneLayer(Stone.WHITE);
     stoneBlocks[4][2].setStoneLayer(Stone.BLACK);
 
     troopBlocks[2][2].setTroopLayer(Troop.WORKER);

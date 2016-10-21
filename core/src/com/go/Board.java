@@ -1,7 +1,6 @@
 package com.go;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.math.MathUtils;
 
 public class Board {
@@ -14,8 +13,6 @@ public class Board {
   StoneBlock [][] stoneBlocks;
   TroopBlock [][] troopBlocks;
 
-  //Troop clickedTroop = Troop.EMPTY_TROOP;
-
   public int offsetX;
   public int offsetY;
 
@@ -27,8 +24,7 @@ public class Board {
   }
 
   public void update (float delta) {
-    //onHover();
-    //onClick();
+
   }
 
   public int getX () {
