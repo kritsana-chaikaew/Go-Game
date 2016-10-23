@@ -3,11 +3,13 @@ package com.go;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 
+
 public class WorldRenderer {
   GoGame game;
   World world;
   BoardRenderer boardRenderer;
   PanelRenderer panelRenderer;
+
   public WorldRenderer (GoGame game, World world) {
     this.game = game;
     this.world = world;
@@ -19,20 +21,7 @@ public class WorldRenderer {
 
   public void render () {
     boardRenderer.render();
-
-    if (world.input.stone == Stone.BLACK) {
-      drawBlock(Assets.blackStoneImage, Gdx.input.getX() / Block.BLOCK_SIZE * Block.BLOCK_SIZE,
-                (GoGame.SCREEN_HEIGHT - Gdx.input.getY() ) / Block.BLOCK_SIZE * Block.BLOCK_SIZE);
-    } else if (world.input.stone == Stone.WHITE) {
-      drawBlock(Assets.whiteStoneImage, Gdx.input.getX() / Block.BLOCK_SIZE * Block.BLOCK_SIZE,
-                (GoGame.SCREEN_HEIGHT - Gdx.input.getY() ) / Block.BLOCK_SIZE * Block.BLOCK_SIZE);
-    }
-
-    if (world.input.troop == Troop.WORKER) {
-      drawBlock(Assets.workerImage, Gdx.input.getX() / Block.BLOCK_SIZE * Block.BLOCK_SIZE,
-                (GoGame.SCREEN_HEIGHT - Gdx.input.getY() ) / Block.BLOCK_SIZE * Block.BLOCK_SIZE);
-    }
-
+    renderCursor();
     panelRenderer.render();
   }
 
@@ -42,6 +31,23 @@ public class WorldRenderer {
       game.batch.draw(image, row, column);
       game.batch.end();
     }
+  }
+
+  public void renderCursor () {
+    int row = Gdx.input.getX() / Block.BLOCK_SIZE * Block.BLOCK_SIZE;
+    int column =  ( GoGame.SCREEN_HEIGHT - Gdx.input.getY() ) /
+                  Block.BLOCK_SIZE * Block.BLOCK_SIZE;
+
+    if (world.input.stone == Stone.BLACK) {
+      drawBlock(Assets.blackStoneImage, row, column);
+    } else if (world.input.stone == Stone.WHITE) {
+      drawBlock(Assets.whiteStoneImage, row, column);
+    }
+
+    if (world.input.troop == Troop.WORKER) {
+      drawBlock(Assets.workerImage, row, column);
+    }
+
   }
 
 }

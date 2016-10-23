@@ -9,18 +9,24 @@ public class Panel {
 
   private int x;
   private int y;
-  private int woodRate;
-  private int clayRate;
-  private int ironRate;
-  private int cropRate;
-  private int wood;
-  private int clay;
-  private int iron;
-  private int crop;
 
   private ResourceBlock [][] resourceBlocks;
   private StoneBlock [][] stoneBlocks;
   private TroopBlock [][] troopBlocks;
+
+
+  int wood = 0;
+  int clay = 0;
+  int iron = 0;
+  int crop = 0;
+
+  int woodRate = 0;
+  int clayRate = 0;
+  int ironRate = 0;
+  int cropRate = 0;
+
+  int totalWorker = 0;
+  int trainingWorker = 0;
 
   public Panel (int x, int y) {
     this.x = x;
@@ -56,10 +62,6 @@ public class Panel {
     troopBlocks[4][2].setTroopLayer(Troop.WORKER);
   }
 
-  public void setupWareHouse () {
-
-  }
-
   public ResourceBlock getResourceBlock (int row, int column) {
     return resourceBlocks[row][column];
   }
@@ -78,5 +80,29 @@ public class Panel {
 
   public int getY () {
     return y;
-}
+  }
+
+
+  public void update () {
+    updateWood();
+    updateClay();
+    updateIron();
+    updateCrop();
+  }
+
+  public void updateWood () {
+    wood += woodRate;
+  }
+
+  public void updateClay () {
+    clay += clayRate;
+  }
+
+  public void updateIron () {
+    iron += ironRate;
+  }
+
+  public void updateCrop () {
+    crop += cropRate;
+  }
 }

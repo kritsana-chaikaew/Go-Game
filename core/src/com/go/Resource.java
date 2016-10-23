@@ -1,7 +1,7 @@
 package com.go;
 
 public enum Resource {
-  EMPTY_RESOURCE, 
+  EMPTY_RESOURCE,
   WOOD,
   CLAY,
   IRON,

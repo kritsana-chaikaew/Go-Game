@@ -29,7 +29,6 @@ public class Input extends InputAdapter {
   }
 
   public Troop getTroopOnClick (int row, int column) {
-    System.out.println(row + " " + column);
     if (row < Panel.PANEL_WIDHT && column < Panel.PANEL_HEIGHT) {
       return panel.getTroopBlock(row, column).getTroopLayer();
     } else {
@@ -45,30 +44,21 @@ public class Input extends InputAdapter {
     }
   }
 
-  public void setTroopOnClick (Troop troop, int row, int column) {
-    if (board.troopBlocks[row][column].getTroopLayer() == Troop.EMPTY_TROOP){
-      board.troopBlocks[row][column].setTroopLayer(troop);
-    }
-    System.out.println("setTroop");
-  }
-
   public void setStoneOnClick (Stone stone, int row, int column) {
     if (board.stoneBlocks[row][column].getStoneLayer() == Stone.EMPTY_STONE){
       board.stoneBlocks[row][column].setStoneLayer(stone);
     }
-    System.out.println("setStone");
   }
 
   public void onClick (int row, int column) {
     if (row < Board.BOARD_SIZE && column < Board.BOARD_SIZE) {
-      setTroopOnClick(troop, row, column);
-      setStoneOnClick(stone, row, column);
+      board.setTroopAt(troop, row, column);
+      board.setStoneAt(stone, row, column);
       troop = Troop.EMPTY_TROOP;
       stone = Stone.EMPTY_STONE;
-    } else if (row >= Board.BOARD_SIZE || column >= Board.BOARD_SIZE) {
-      System.out.println("getTroop");
-      troop = getTroopOnClick(row - Board.BOARD_SIZE, column);
-      stone = getStoneOnclick(row - Board.BOARD_SIZE, column);
+    } else if (row >= panel.getX() / Block.BLOCK_SIZE) {
+      troop = getTroopOnClick(row - panel.getX() / Block.BLOCK_SIZE, column);
+      stone = getStoneOnclick(row - panel.getX() / Block.BLOCK_SIZE, column);
     }
   }
 }

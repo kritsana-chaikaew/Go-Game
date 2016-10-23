@@ -5,8 +5,6 @@ import com.badlogic.gdx.math.MathUtils;
 public class Board {
   public static final int BOARD_SIZE = 10;
 
-  Block blockHover;
-
   ResourceBlock [][] resourceBlocks;
   GridBlock [][] gridBlocks;
   StoneBlock [][] stoneBlocks;
@@ -82,9 +80,6 @@ public class Board {
     setupResource(Resource.CLAY, 5);
     setupResource(Resource.IRON, 5);
     setupResource(Resource.CROP, 5);
-
-    setTroopAt(Troop.WORKER, 0, 0);
-    setStoneAt(Stone.BLACK, 0, 0);
   }
 
   public void setupResource (Resource resourceLayer, int num) {
