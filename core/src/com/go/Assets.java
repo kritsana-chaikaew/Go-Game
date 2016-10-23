@@ -28,6 +28,8 @@ public class Assets {
 
   public static Texture workerImage;
 
+  public static Texture endTurnImage;
+
 
   public static Texture loadTexture (String file) {
 		return new Texture(Gdx.files.internal(file));
@@ -57,5 +59,7 @@ public class Assets {
     hoverImage = loadTexture("hover.png");
 
     workerImage = loadTexture("worker.png");
+
+    endTurnImage = loadTexture("end_turn.png");
   }
 }

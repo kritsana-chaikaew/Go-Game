@@ -27,6 +27,7 @@ public class PanelRenderer {
         renderResourceLayer(panel.getResourceBlock(i, j));
         renderStoneLayer(panel.getStoneBlock(i, j));
         renderTroopLayer(panel.getTroopBlock(i, j));
+        renderEndTurnButton();
       }
     }
   }
@@ -72,6 +73,10 @@ public class PanelRenderer {
     }
   }
 
+  public void renderEndTurnButton () {
+    drawBlock(Assets.endTurnImage, 1, 5);
+  }
+
   public void drawBlock (Texture image, int row, int column) {
     if (image != null) {
       game.batch.begin();
@@ -102,6 +107,5 @@ public class PanelRenderer {
     font.draw(game.batch, string, r, c);
     game.batch.end();
   }
-
 
 }

@@ -50,15 +50,31 @@ public class Input extends InputAdapter {
     }
   }
 
+  public void clickOnBoard (int row, int column) {
+    board.setTroopAt(troop, row, column);
+    board.setStoneAt(stone, row, column);
+    troop = Troop.EMPTY_TROOP;
+    stone = Stone.EMPTY_STONE;
+  }
+
+  public void clickOnPanel (int row, int column) {
+    if ((row - panel.getX() / Block.BLOCK_SIZE) == 1 && column == 5) {
+      endTurn();
+    }
+
+    troop = getTroopOnClick(row - panel.getX() / Block.BLOCK_SIZE, column);
+    stone = getStoneOnclick(row - panel.getX() / Block.BLOCK_SIZE, column);
+  }
+
+  public void endTurn () {
+    System.out.println("End Turn");
+  }
+
   public void onClick (int row, int column) {
     if (row < Board.BOARD_SIZE && column < Board.BOARD_SIZE) {
-      board.setTroopAt(troop, row, column);
-      board.setStoneAt(stone, row, column);
-      troop = Troop.EMPTY_TROOP;
-      stone = Stone.EMPTY_STONE;
+      clickOnBoard(row, column);
     } else if (row >= panel.getX() / Block.BLOCK_SIZE) {
-      troop = getTroopOnClick(row - panel.getX() / Block.BLOCK_SIZE, column);
-      stone = getStoneOnclick(row - panel.getX() / Block.BLOCK_SIZE, column);
+      clickOnPanel(row, column);
     }
   }
 }

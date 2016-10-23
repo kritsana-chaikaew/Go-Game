@@ -13,7 +13,7 @@ public class World {
     this.game = game;
     board = new Board(  0, 0);
 
-    panel = new Panel(596, 0);
+    panel = new Panel(640, 0);
 
     input = new Input(board, panel);
   }
