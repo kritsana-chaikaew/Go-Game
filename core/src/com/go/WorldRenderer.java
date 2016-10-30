@@ -8,7 +8,7 @@ public class WorldRenderer {
   GoGame game;
   World world;
   BoardRenderer boardRenderer;
-  PanelRenderer panelRenderer;
+  PanelRenderer leftPanelRenderer, rightPanelRenderer;
 
   public WorldRenderer (GoGame game, World world) {
     this.game = game;
@@ -16,13 +16,15 @@ public class WorldRenderer {
 
     boardRenderer = new BoardRenderer(game, world.board);
 
-    panelRenderer = new PanelRenderer(game, world.panel);
+    leftPanelRenderer = new PanelRenderer(game, world.leftPanel);
+    rightPanelRenderer = new PanelRenderer(game, world.rightPanel);
   }
 
   public void render () {
     boardRenderer.render();
     renderCursor();
-    panelRenderer.render();
+    leftPanelRenderer.render();
+    rightPanelRenderer.render();
   }
 
   public void drawBlock (Texture image, int row, int column) {

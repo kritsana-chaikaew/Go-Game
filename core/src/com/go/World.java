@@ -5,17 +5,19 @@ import com.badlogic.gdx.InputAdapter;
 public class World {
   GoGame game;
   Board board;
-  Panel panel;
+  Panel leftPanel, rightPanel;
 
   Input input;
 
   public World (GoGame game) {
     this.game = game;
-    board = new Board(  0, 0);
 
-    panel = new Panel(640, 0);
+    int boardPosition = GoGame.SCREEN_WIDTH / 2 - (Board.BOARD_SIZE * Block.BLOCK_SIZE / 2);
 
-    input = new Input(board, panel);
+    leftPanel = new Panel(0, 0);
+    board = new Board(boardPosition, 0);
+    rightPanel = new Panel(960, 0);
+    input = new Input(board, leftPanel, rightPanel);
   }
 
   public void update (float delta) {
