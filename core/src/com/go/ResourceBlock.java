@@ -14,4 +14,8 @@ public class ResourceBlock extends Block {
   public Resource getResourceLayer () {
     return resourceLayer;
   }
+
+  public boolean hasLayer (Resource resourceLayer) {
+    return this.resourceLayer == resourceLayer;
+  }
 }

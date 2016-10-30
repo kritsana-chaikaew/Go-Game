@@ -2,7 +2,7 @@ package com.go;
 
 public class StoneBlock extends Block {
   Stone stoneLayer = Stone.EMPTY_STONE;
-  
+
   public StoneBlock (int row, int column) {
     super(row, column);
   }
@@ -13,5 +13,9 @@ public class StoneBlock extends Block {
 
   public Stone getStoneLayer () {
     return stoneLayer;
+  }
+
+  public boolean hasLayer (Stone stoneLayer) {
+    return this.stoneLayer == stoneLayer;
   }
 }

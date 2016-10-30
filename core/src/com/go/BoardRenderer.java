@@ -15,8 +15,9 @@ public class BoardRenderer {
 
     for (int i = 0; i < Board.BOARD_SIZE; i ++) {
       for (int j = 0; j < Board.BOARD_SIZE; j++) {
+        drawBlock(Assets.boardBackGroundImage, i, j);
         renderResourceLayer(board.resourceBlocks[i][j]);
-        renderGridLayer(board.gridBlocks[i][j]);
+        drawBlock(Assets.gridImage, i, j);
         renderStoneLayer(board.stoneBlocks[i][j]);
         renderTroopLayer(board.troopBlocks[i][j]);
       }
@@ -45,31 +46,6 @@ public class BoardRenderer {
         drawBlock(Assets.cropImage, resourceBlock.getRow(), resourceBlock.getColumn());
       }
     }
-  }
-
-  public void renderGridLayer (GridBlock gridBlock) {
-    if (gridBlock.getGridLayer() != Grid.EMPTY_GRID) {
-      if (gridBlock.getGridLayer() == Grid.CENTER) {
-        drawBlock(Assets.centerImage, gridBlock.getRow(), gridBlock.getColumn());
-      } else if (gridBlock.getGridLayer() == Grid.LEFT_DOWN_CORNER) {
-        drawBlock(Assets.leftDownCornerImage, gridBlock.getRow(), gridBlock.getColumn());
-      } else if (gridBlock.getGridLayer() == Grid.LEFT_TOP_CORNER) {
-        drawBlock(Assets.leftTopCornerImage, gridBlock.getRow(), gridBlock.getColumn());
-      } else if (gridBlock.getGridLayer() == Grid.RIGHT_DOWN_CORNER) {
-        drawBlock(Assets.rightDownCornerImage, gridBlock.getRow(), gridBlock.getColumn());
-      } else if (gridBlock.getGridLayer() == Grid.RIGHT_TOP_CORNER) {
-        drawBlock(Assets.riightTopCornerImage, gridBlock.getRow(), gridBlock.getColumn());
-      } else if (gridBlock.getGridLayer() == Grid.LEFT_SIDE) {
-        drawBlock(Assets.leftSideImage, gridBlock.getRow(), gridBlock.getColumn());
-      } else if (gridBlock.getGridLayer() == Grid.RIGHT_SIDE) {
-        drawBlock(Assets.rightSideImage, gridBlock.getRow(), gridBlock.getColumn());
-      } else if (gridBlock.getGridLayer() == Grid.DOWN_SIDE) {
-        drawBlock(Assets.downSideImage, gridBlock.getRow(), gridBlock.getColumn());
-      } else if (gridBlock.getGridLayer() == Grid.TOP_SIDE) {
-        drawBlock(Assets.topSideImage, gridBlock.getRow(), gridBlock.getColumn());
-      }
-    }
-
   }
 
   public void renderStoneLayer (StoneBlock stoneBlock) {

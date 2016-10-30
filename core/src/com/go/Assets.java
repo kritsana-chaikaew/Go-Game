@@ -4,17 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 
 public class Assets {
-  public static Texture backGroundImage;
+  public static Texture boardBackGroundImage;
 
-  public static Texture centerImage;
-  public static Texture leftDownCornerImage;
-  public static Texture leftTopCornerImage;
-  public static Texture rightDownCornerImage;
-  public static Texture riightTopCornerImage;
-  public static Texture leftSideImage;
-  public static Texture rightSideImage;
-  public static Texture topSideImage;
-  public static Texture downSideImage;
+  public static Texture gridImage;
 
   public static Texture blackStoneImage;
   public static Texture whiteStoneImage;
@@ -36,17 +28,9 @@ public class Assets {
 	}
 
   public static void load () {
-    backGroundImage = loadTexture("background.png");
+    boardBackGroundImage = loadTexture("board_background.png");
 
-    centerImage = loadTexture("center.png");
-    leftDownCornerImage = loadTexture("corner1.png");
-    leftTopCornerImage = loadTexture("corner2.png");
-    rightDownCornerImage = loadTexture("corner3.png");
-    riightTopCornerImage = loadTexture("corner4.png");
-    leftSideImage = loadTexture("side1.png");
-    rightSideImage = loadTexture("side3.png");
-    topSideImage = loadTexture("side2.png");
-    downSideImage = loadTexture("side4.png");
+    gridImage = loadTexture("grid.png");
 
     blackStoneImage = loadTexture("black.png");
     whiteStoneImage = loadTexture("white.png");
