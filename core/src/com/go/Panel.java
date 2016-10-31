@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class Panel {
-  public static final int PANEL_WIDHT = 5;
+  public static final int PANEL_WIDHT = 4;
   public static final int PANEL_HEIGHT = Board.BOARD_SIZE;
 
   private int x;
@@ -13,6 +13,8 @@ public class Panel {
   private ResourceBlock [][] resourceBlocks;
   private StoneBlock [][] stoneBlocks;
   private TroopBlock [][] troopBlocks;
+
+  private Block endTurnButton;
 
 
   int wood = 0;
@@ -48,18 +50,20 @@ public class Panel {
       }
     }
 
-    resourceBlocks[1][0].setResourceLayer(Resource.WOOD);
-    resourceBlocks[2][0].setResourceLayer(Resource.CLAY);
-    resourceBlocks[3][0].setResourceLayer(Resource.IRON);
-    resourceBlocks[4][0].setResourceLayer(Resource.CROP);
+    endTurnButton = new Block(0, 4);
 
+    resourceBlocks[0][0].setResourceLayer(Resource.WOOD);
+    resourceBlocks[1][0].setResourceLayer(Resource.CLAY);
+    resourceBlocks[2][0].setResourceLayer(Resource.IRON);
+    resourceBlocks[3][0].setResourceLayer(Resource.CROP);
+
+    stoneBlocks[0][2].setStoneLayer(Stone.BLACK);
+    stoneBlocks[1][2].setStoneLayer(Stone.WHITE);
     stoneBlocks[2][2].setStoneLayer(Stone.BLACK);
-    stoneBlocks[3][2].setStoneLayer(Stone.WHITE);
-    stoneBlocks[4][2].setStoneLayer(Stone.BLACK);
 
+    troopBlocks[0][2].setTroopLayer(Troop.WORKER);
+    troopBlocks[1][2].setTroopLayer(Troop.WORKER);
     troopBlocks[2][2].setTroopLayer(Troop.WORKER);
-    troopBlocks[3][2].setTroopLayer(Troop.WORKER);
-    troopBlocks[4][2].setTroopLayer(Troop.WORKER);
   }
 
   public ResourceBlock getResourceBlock (int row, int column) {
@@ -72,6 +76,10 @@ public class Panel {
 
   public TroopBlock getTroopBlock (int row, int column) {
     return troopBlocks[row][column];
+  }
+
+  public Block getEndTurnButton () {
+    return endTurnButton;
   }
 
   public int getX () {

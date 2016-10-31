@@ -69,19 +69,25 @@ public class PanelRenderer {
 
   public void renderTroopLayer (TroopBlock troopBlock) {
     if (troopBlock.getTroopLayer() == Troop.WORKER) {
-      drawBlock(Assets.workerImage, troopBlock.getRow(), troopBlock.getColumn());
+      drawBlock(Assets.workerImage,
+                troopBlock.getRow(),
+                troopBlock.getColumn());
     }
   }
 
   public void renderEndTurnButton () {
-    drawBlock(Assets.endTurnImage, 1, 5);
+    drawBlock(Assets.endTurnImage,
+              panel.getEndTurnButton().getRow(),
+              panel.getEndTurnButton().getColumn());
   }
 
   public void drawBlock (Texture image, int row, int column) {
     if (image != null) {
       game.batch.begin();
-      game.batch.draw(image, panel.getX() + (Block.BLOCK_SIZE * row),
-                      GoGame.SCREEN_HEIGHT - (Block.BLOCK_SIZE * (column + 1) ) );
+      game.batch.draw(image,
+                      panel.getX() + (Block.BLOCK_SIZE * row),
+                      panel.getY() +  GoGame.SCREEN_HEIGHT
+                                   - (Block.BLOCK_SIZE * (column + 1) ) );
       game.batch.end();
     }
   }

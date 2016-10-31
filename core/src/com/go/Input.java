@@ -17,6 +17,8 @@ public class Input extends InputAdapter {
     this.rightPanel = rightPanel;
 
     Gdx.input.setInputProcessor(this);
+
+    World.gameState = GameState.WHITE_TURN;
   }
 
   @Override
@@ -54,7 +56,8 @@ public class Input extends InputAdapter {
   }
 
   public void clickOnPanel (Panel panel, int row, int column) {
-    if ((row - panel.getX() / Block.BLOCK_SIZE) == 1 && column == 5) {
+    if (  row == panel.getEndTurnButton().getRow()
+          && column == panel.getEndTurnButton().getColumn() ) {
       endTurn();
     }
 

@@ -9,10 +9,13 @@ public class World {
 
   Input input;
 
+  public static GameState gameState = GameState.BLACK_TURN;
+
   public World (GoGame game) {
     this.game = game;
 
-    int boardPosition = GoGame.SCREEN_WIDTH / 2 - (Board.BOARD_SIZE * Block.BLOCK_SIZE / 2);
+    int boardPosition = GoGame.SCREEN_WIDTH / 2
+                        - (Board.BOARD_SIZE * Block.BLOCK_SIZE / 2);
 
     leftPanel = new Panel(0, 0);
     board = new Board(boardPosition, 0);
