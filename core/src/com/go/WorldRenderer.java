@@ -76,7 +76,9 @@ System.out.println(r + " " + c);
 
       if ( !world.input.troopBlock.hasLayer(Troop.EMPTY_TROOP) ) {
         drawFont( "" + world.input.troopBlock.getHP(),
-                  row, column, 30, 36, Color.RED);
+                  row, column, 30, 42, Color.RED);
+        drawFont( "" + world.input.troopBlock.getDamage(),
+                  row, column, 30, 24, Color.BLUE);
       }
     }
 

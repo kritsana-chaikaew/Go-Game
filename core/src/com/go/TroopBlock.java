@@ -4,11 +4,12 @@ public class TroopBlock extends Block {
   Troop troopLayer = Troop.EMPTY_TROOP;
 
   private int hitPoint = 0;
+  private int damage = 0;
 
   public TroopBlock (int row, int column) {
     super(row, column);
   }
-  
+
   public void setTroopLayer (Troop troopLayer) {
     this.troopLayer = troopLayer;
   }
@@ -27,5 +28,13 @@ public class TroopBlock extends Block {
 
   public int getHP () {
     return hitPoint;
+  }
+
+  public void setDamage (int damage) {
+    this.damage = damage;
+  }
+
+  public int getDamage () {
+    return damage;
   }
 }

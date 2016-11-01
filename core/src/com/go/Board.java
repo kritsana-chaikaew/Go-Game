@@ -76,6 +76,7 @@ public class Board {
       troopBlocks[row][column].setRow(row);
       troopBlocks[row][column].setColumn(column);
       troopBlocks[row][column].setHP(troopBlock.getHP());
+      troopBlocks[row][column].setDamage(troopBlock.getDamage());
     }
   }
 

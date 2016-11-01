@@ -76,6 +76,10 @@ public class Panel {
     troopBlocks[0][1].setHP(2);
     troopBlocks[0][2].setHP(1);
     troopBlocks[0][3].setHP(5);
+
+    troopBlocks[0][2].setDamage(1);
+    troopBlocks[0][2].setDamage(2);
+    troopBlocks[0][2].setDamage(0);
   }
 
   public Stone getStoneLayer () {
