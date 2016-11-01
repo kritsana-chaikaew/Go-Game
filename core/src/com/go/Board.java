@@ -70,9 +70,12 @@ public class Board {
     }
   }
 
-  public void setTroopAt (Troop troopLayer, int row, int column) {
+  public void setTroopAt (TroopBlock troopBlock, int row, int column) {
     if ( troopBlocks[row][column].hasLayer(Troop.EMPTY_TROOP) ) {
-      troopBlocks[row][column].setTroopLayer(troopLayer);
+      troopBlocks[row][column].setTroopLayer(troopBlock.getTroopLayer());
+      troopBlocks[row][column].setRow(row);
+      troopBlocks[row][column].setColumn(column);
+      troopBlocks[row][column].setHP(troopBlock.getHP());
     }
   }
 
@@ -81,7 +84,7 @@ public class Board {
   }
 
   public void removeTroopAt (int row, int column) {
-    setTroopAt(Troop.EMPTY_TROOP, row, column);
+    setTroopAt(new TroopBlock(row, column), row, column);
   }
 
   public ResourceBlock getResourceAt (int row, int column) {

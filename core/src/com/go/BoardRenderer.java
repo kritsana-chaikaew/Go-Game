@@ -2,13 +2,20 @@ package com.go;
 
 import com.badlogic.gdx.graphics.Texture;
 
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+
 public class BoardRenderer {
   GoGame game;
   Board board;
 
+  private BitmapFont font;
+
   public BoardRenderer (GoGame game, Board board) {
     this.game = game;
     this.board = board;
+
+    font = new BitmapFont();
   }
 
   public void render () {
@@ -32,6 +39,17 @@ public class BoardRenderer {
                       GoGame.SCREEN_HEIGHT - (Block.BLOCK_SIZE * (column + 1) ) );
       game.batch.end();
     }
+  }
+
+  public void drawFont (String string, int row, int column, int x, int y, Color color) {
+    font.setColor (color);
+
+    int r = board.getX() + (Block.BLOCK_SIZE * row) + x;
+    int c = GoGame.SCREEN_HEIGHT - (Block.BLOCK_SIZE * (column + 1) ) + y;
+
+    game.batch.begin();
+    font.draw(game.batch, string, r, c);
+    game.batch.end();
   }
 
   public void renderResourceLayer (ResourceBlock resourceBlock) {
@@ -64,10 +82,15 @@ public class BoardRenderer {
 
     if (troopBlock.hasLayer(Troop.SWORDMAN)) {
       drawBlock(Assets.swordImage, row, column);
+      drawFont("" + troopBlock.getHP(), row, column, 30, 36, Color.RED);
     } else if (troopBlock.hasLayer(Troop.BOWMAN)) {
       drawBlock(Assets.bowImage, row, column);
     } else if (troopBlock.hasLayer(Troop.GUARDIAN)) {
       drawBlock(Assets.shieldImage, row, column);
+    }
+
+    if ( !troopBlock.hasLayer(Troop.EMPTY_TROOP) ) {
+      drawFont("" + troopBlock.getHP(), row, column, 30, 36, Color.RED);
     }
   }
 }

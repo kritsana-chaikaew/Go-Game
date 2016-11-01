@@ -74,10 +74,15 @@ public class PanelRenderer {
 
     if (troopBlock.hasLayer(Troop.SWORDMAN)) {
       drawBlock(Assets.swordImage, row, column);
+      drawFont("" + troopBlock.getHP(), row, column, 30, 36, Color.RED);
     } else if (troopBlock.hasLayer(Troop.BOWMAN)) {
       drawBlock(Assets.bowImage, row, column);
     } else if (troopBlock.hasLayer(Troop.GUARDIAN)) {
       drawBlock(Assets.shieldImage, row, column);
+    }
+
+    if ( !troopBlock.hasLayer(Troop.EMPTY_TROOP) ) {
+      drawFont("" + troopBlock.getHP(), row, column, 30, 36, Color.RED);
     }
   }
 

@@ -3,12 +3,17 @@ package com.go;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+
 
 public class WorldRenderer {
   GoGame game;
   World world;
   BoardRenderer boardRenderer;
   PanelRenderer leftPanelRenderer, rightPanelRenderer;
+
+  private BitmapFont font;
 
   public WorldRenderer (GoGame game, World world) {
     this.game = game;
@@ -18,6 +23,8 @@ public class WorldRenderer {
 
     leftPanelRenderer = new PanelRenderer(game, world.leftPanel);
     rightPanelRenderer = new PanelRenderer(game, world.rightPanel);
+
+    font = new BitmapFont();
   }
 
   public void render () {
@@ -35,6 +42,18 @@ public class WorldRenderer {
     }
   }
 
+  public void drawFont (String string, int row, int column, int x, int y, Color color) {
+    font.setColor (color);
+
+    int r = row + x;
+    int c = column + y;
+
+System.out.println(r + " " + c);
+    game.batch.begin();
+    font.draw(game.batch, string, r, c);
+    game.batch.end();
+  }
+
   public void renderCursor () {
     int row = Gdx.input.getX() / Block.BLOCK_SIZE * Block.BLOCK_SIZE;
     int column =  ( GoGame.SCREEN_HEIGHT - Gdx.input.getY() ) /
@@ -46,12 +65,19 @@ public class WorldRenderer {
       drawBlock(Assets.whiteStoneImage, row, column);
     }
 
-    if (world.input.troop == Troop.SWORDMAN) {
-      drawBlock(Assets.swordImage, row, column);
-    } else if (world.input.troop == Troop.BOWMAN) {
-      drawBlock(Assets.bowImage, row, column);
-    } else if (world.input.troop == Troop.GUARDIAN) {
-      drawBlock(Assets.shieldImage, row, column);
+    if (world.input.troopBlock != null) {
+      if ( world.input.troopBlock.hasLayer(Troop.SWORDMAN) ) {
+        drawBlock(Assets.swordImage, row, column);
+      } else if ( world.input.troopBlock.hasLayer(Troop.BOWMAN) ) {
+        drawBlock(Assets.bowImage, row, column);
+      } else if ( world.input.troopBlock.hasLayer(Troop.GUARDIAN) ) {
+        drawBlock(Assets.shieldImage, row, column);
+      }
+
+      if ( !world.input.troopBlock.hasLayer(Troop.EMPTY_TROOP) ) {
+        drawFont( "" + world.input.troopBlock.getHP(),
+                  row, column, 30, 36, Color.RED);
+      }
     }
 
   }

@@ -72,6 +72,10 @@ public class Panel {
     troopBlocks[0][1].setTroopLayer(Troop.SWORDMAN);
     troopBlocks[0][2].setTroopLayer(Troop.BOWMAN);
     troopBlocks[0][3].setTroopLayer(Troop.GUARDIAN);
+
+    troopBlocks[0][1].setHP(2);
+    troopBlocks[0][2].setHP(1);
+    troopBlocks[0][3].setHP(5);
   }
 
   public Stone getStoneLayer () {

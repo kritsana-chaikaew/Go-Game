@@ -9,7 +9,7 @@ public class Input extends InputAdapter {
   Board board;
   Panel leftPanel, rightPanel;
 
-  Troop troop = Troop.EMPTY_TROOP;
+  TroopBlock troopBlock;
   Stone stone = Stone.EMPTY_STONE;
 
   public Input (World world) {
@@ -51,8 +51,9 @@ public class Input extends InputAdapter {
   }
 
   public void clickOnBoard (int row, int column) {
-    if (board.getTroopAt(row, column).hasLayer(Troop.EMPTY_TROOP)) {
-      board.setTroopAt(troop, row, column);
+    if (troopBlock != null
+        && board.getTroopAt(row, column).hasLayer(Troop.EMPTY_TROOP) ) {
+      board.setTroopAt(troopBlock, row, column);
       board.setStoneAt(stone, row, column);
 
       clearSelection();
@@ -65,17 +66,17 @@ public class Input extends InputAdapter {
         panel.endTurn();
       }
 
-      troop = getTroopOnClick(panel, row, column);
+      troopBlock = getTroopBlockOnClick(panel, row, column);
       stone = getStoneOnclick(panel, row, column);
     }
   }
 
-  public Troop getTroopOnClick (Panel panel, int row, int column) {
+  public TroopBlock getTroopBlockOnClick (Panel panel, int row, int column) {
     if (row < Panel.PANEL_WIDHT
         && column < Panel.PANEL_HEIGHT) {
-      return panel.getTroopBlock(row, column).getTroopLayer();
+      return panel.getTroopBlock(row, column);
     } else {
-      return Troop.EMPTY_TROOP;
+      return null;
     }
   }
 
@@ -95,7 +96,7 @@ public class Input extends InputAdapter {
   }
 
   public void clearSelection () {
-    troop = Troop.EMPTY_TROOP;
+    troopBlock = null;
     stone = Stone.EMPTY_STONE;
   }
 
