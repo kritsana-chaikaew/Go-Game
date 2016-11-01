@@ -22,8 +22,8 @@ public class World {
           (GoGame.SCREEN_WIDTH - (Panel.PANEL_WIDHT * Block.BLOCK_SIZE)) /
           Block.BLOCK_SIZE * Block.BLOCK_SIZE;
 
-    leftPanel = new Panel(0, 0, Stone.BLACK, this);
     board = new Board(boardPosition, 0);
+    leftPanel = new Panel(0, 0, Stone.BLACK, this);
     rightPanel = new Panel(rightPanelPosition, 0, Stone.WHITE, this);
     input = new Input(this);
   }

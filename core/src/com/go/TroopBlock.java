@@ -5,6 +5,7 @@ public class TroopBlock extends Block {
 
   private int hitPoint = 0;
   private int damage = 0;
+  private int attackRange = 0;
 
   public TroopBlock (int row, int column) {
     super(row, column);
@@ -36,5 +37,17 @@ public class TroopBlock extends Block {
 
   public int getDamage () {
     return damage;
+  }
+
+  public void setAttackRange (int range) {
+    attackRange = range;
+  }
+
+  public int getAttackRange () {
+    return attackRange;
+  }
+
+  public void attack (TroopBlock target) {
+    target.setHP(target.getHP() - damage);
   }
 }

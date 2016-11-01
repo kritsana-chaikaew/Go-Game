@@ -77,9 +77,13 @@ public class Panel {
     troopBlocks[0][2].setHP(1);
     troopBlocks[0][3].setHP(5);
 
-    troopBlocks[0][2].setDamage(1);
+    troopBlocks[0][1].setDamage(1);
     troopBlocks[0][2].setDamage(2);
-    troopBlocks[0][2].setDamage(0);
+    troopBlocks[0][3].setDamage(0);
+
+    troopBlocks[0][1].setAttackRange(1);
+    troopBlocks[0][2].setAttackRange(2);
+    troopBlocks[0][3].setAttackRange(0);
   }
 
   public Stone getStoneLayer () {
@@ -170,6 +174,8 @@ public class Panel {
     } else if (World.gameState == GameState.WHITE_TURN) {
       World.changeGameState(GameState.BLACK_TURN);
     }
+
+    world.getBoard().calculateAttack(stoneLayer);
 
     beginTurn = false;
   }

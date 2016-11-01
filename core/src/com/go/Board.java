@@ -20,7 +20,19 @@ public class Board {
   }
 
   public void update () {
+    TroopBlock troopBlock;
 
+    for (int i = 0; i < BOARD_SIZE; i++) {
+      for (int j = 0; j < BOARD_SIZE; j++) {
+        troopBlock = troopBlocks[i][j];
+
+        if (  troopBlock.getHP() <= 0
+              && !troopBlock.hasLayer(Troop.EMPTY_TROOP) ) {
+          removeTroopAt(i, j);
+          removeStoneAt(i, j);
+        }
+      }
+    }
   }
 
   public int getX () {
@@ -77,15 +89,16 @@ public class Board {
       troopBlocks[row][column].setColumn(column);
       troopBlocks[row][column].setHP(troopBlock.getHP());
       troopBlocks[row][column].setDamage(troopBlock.getDamage());
+      troopBlocks[row][column].setAttackRange(troopBlock.getAttackRange());
     }
   }
 
   public void removeStoneAt (int row, int column) {
-    setStoneAt(Stone.EMPTY_STONE, row, column);
+    stoneBlocks[row][column].setStoneLayer(Stone.EMPTY_STONE);
   }
 
   public void removeTroopAt (int row, int column) {
-    setTroopAt(new TroopBlock(row, column), row, column);
+    troopBlocks[row][column] = new TroopBlock(row, column);
   }
 
   public ResourceBlock getResourceAt (int row, int column) {
@@ -98,5 +111,36 @@ public class Board {
 
   public TroopBlock getTroopAt (int row, int column) {
     return troopBlocks[row][column];
+  }
+
+  public void calculateAttack (Stone stoneLayer) {
+    System.out.println("stone " + stoneLayer);
+    for (int i = 0; i < BOARD_SIZE; i++) {
+      for (int j = 0; j < BOARD_SIZE; j++) {
+        if ( stoneBlocks[i][j].hasLayer(stoneLayer) ) {
+          System.out.println("attackInRange ");
+          System.out.println("getStone " + stoneBlocks[i][j].getStoneLayer());
+          attackInRange(i, j);
+        }
+      }
+    }
+  }
+
+  public void attackInRange (int row, int column) {
+    TroopBlock troopBlock = troopBlocks[row][column];
+    StoneBlock stoneBlock = stoneBlocks[row][column];
+    int a = troopBlock.getAttackRange();
+
+    for (int i = row - a; i <= row + a; i++) {
+      for (int j = column - a; j <= column + a; j++) {
+        if (i >= 0 && i < BOARD_SIZE && j >= 0 && j < BOARD_SIZE) {
+          System.out.println("attack!!!");
+          if ( !stoneBlocks[i][j].hasLayer( stoneBlock.getStoneLayer() )
+                && !troopBlocks[i][j].hasLayer(Troop.EMPTY_TROOP) ) {
+            troopBlock.attack(troopBlocks[i][j]);
+          }
+        }
+      }
+    }
   }
 }
