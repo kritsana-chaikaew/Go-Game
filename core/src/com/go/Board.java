@@ -9,12 +9,12 @@ public class Board {
   StoneBlock [][] stoneBlocks;
   TroopBlock [][] troopBlocks;
 
-  public int offsetX;
-  public int offsetY;
+  public int originX;
+  public int originY;
 
   public Board (int x, int y) {
-    offsetX = x / 64 * 64;
-    offsetY = y / 64 * 64;
+    originX = x / 64 * 64;
+    originY = y / 64 * 64;
 
     setupBoard();
   }
@@ -24,11 +24,11 @@ public class Board {
   }
 
   public int getX () {
-    return offsetX;
+    return originX;
   }
 
   public int getY () {
-    return offsetY;
+    return originY;
   }
 
   public void setupBoard () {
@@ -62,7 +62,6 @@ public class Board {
         i++;
       }
     }
-
   }
 
   public void setStoneAt (Stone stoneLayer, int row, int column) {

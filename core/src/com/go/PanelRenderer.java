@@ -36,22 +36,23 @@ public class PanelRenderer {
     Resource resourceLayer = resourceBlock.getResourceLayer();
     int row = resourceBlock.getRow();
     int column = resourceBlock.getColumn();
+
     if (resourceLayer == Resource.WOOD) {
       drawBlock(Assets.woodImage, row, column);
-      drawResourceFont("" + panel.wood + "", row, column);
-      drawRateFont("(+" + panel.woodRate + ")", row, column);
+      drawFont("" + panel.wood + "", row, column, 16, 40, Color.BLACK);
+      drawFont("+" + panel.woodRate + "", row, column, 30, 40, Color.GREEN);
     } else if (resourceLayer == Resource.CLAY) {
       drawBlock(Assets.clayImage, row, column);
-      drawResourceFont("" + panel.clay + "", row, column);
-      drawRateFont("(+" + panel.clayRate + ")", row, column);
+      drawFont("" + panel.clay + "", row, column, 16, 40, Color.BLACK);
+      drawFont("+" + panel.clayRate + "", row, column, 30, 40, Color.GREEN);
     } else if (resourceLayer == Resource.IRON) {
       drawBlock(Assets.ironImage, row, column);
-      drawResourceFont("" + panel.iron + "", row, column);
-      drawRateFont("(+" + panel.ironRate + ")", row, column);
+      drawFont("" + panel.iron + "", row, column, 16, 40, Color.BLACK);
+      drawFont("+" + panel.ironRate + "", row, column, 30, 40, Color.GREEN);
     } else if (resourceLayer == Resource.CROP) {
       drawBlock(Assets.cropImage, row, column);
-      drawResourceFont("" + panel.crop + "", row, column);
-      drawRateFont("(+" + panel.cropRate + ")", row, column);
+      drawFont("" + panel.crop + "", row, column, 16, 40, Color.BLACK);
+      drawFont("+" + panel.cropRate + "", row, column, 30, 40, Color.GREEN);
     }
   }
 
@@ -79,6 +80,14 @@ public class PanelRenderer {
     drawBlock(Assets.endTurnImage,
               panel.getEndTurnButton().getRow(),
               panel.getEndTurnButton().getColumn());
+    if (World.gameState == GameState.BLACK_TURN && panel.getStoneLayer() == Stone.BLACK
+        || World.gameState == GameState.WHITE_TURN && panel.getStoneLayer() == Stone.WHITE){
+      drawFont("End Turn",
+                panel.getEndTurnButton().getRow(),
+                panel.getEndTurnButton().getColumn(),
+                0, 40,
+                Color.BLACK);
+    }
   }
 
   public void drawBlock (Texture image, int row, int column) {
@@ -92,22 +101,11 @@ public class PanelRenderer {
     }
   }
 
-  public void drawResourceFont (String string, int row, int column) {
-    font.setColor (Color.BLACK);
+  public void drawFont (String string, int row, int column, int x, int y, Color color) {
+    font.setColor (color);
 
-    int r = panel.getX() + (Block.BLOCK_SIZE * row) + 16;
-    int c = GoGame.SCREEN_HEIGHT - (Block.BLOCK_SIZE * (column + 1) ) + 40;
-
-    game.batch.begin();
-    font.draw(game.batch, string, r, c);
-    game.batch.end();
-  }
-
-  public void drawRateFont (String string, int row, int column) {
-    font.setColor (Color.GREEN);
-
-    int r = panel.getX() + (Block.BLOCK_SIZE * row) + 28;
-    int c = GoGame.SCREEN_HEIGHT - (Block.BLOCK_SIZE * (column + 1) ) + 40;
+    int r = panel.getX() + (Block.BLOCK_SIZE * row) + x;
+    int c = GoGame.SCREEN_HEIGHT - (Block.BLOCK_SIZE * (column + 1) ) + y;
 
     game.batch.begin();
     font.draw(game.batch, string, r, c);

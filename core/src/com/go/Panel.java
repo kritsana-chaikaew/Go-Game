@@ -16,6 +16,8 @@ public class Panel {
 
   private Block endTurnButton;
 
+  private Stone stoneLayer;
+
 
   int wood = 0;
   int clay = 0;
@@ -30,9 +32,10 @@ public class Panel {
   int totalWorker = 0;
   int trainingWorker = 0;
 
-  public Panel (int x, int y) {
+  public Panel (int x, int y, Stone stoneLayer) {
     this.x = x;
     this.y = y;
+    this.stoneLayer = stoneLayer;
 
     setupPanel();
   }
@@ -57,13 +60,17 @@ public class Panel {
     resourceBlocks[2][0].setResourceLayer(Resource.IRON);
     resourceBlocks[3][0].setResourceLayer(Resource.CROP);
 
-    stoneBlocks[0][2].setStoneLayer(Stone.BLACK);
-    stoneBlocks[1][2].setStoneLayer(Stone.WHITE);
-    stoneBlocks[2][2].setStoneLayer(Stone.BLACK);
+    stoneBlocks[0][2].setStoneLayer(stoneLayer);
+    stoneBlocks[1][2].setStoneLayer(stoneLayer);
+    stoneBlocks[2][2].setStoneLayer(stoneLayer);
 
     troopBlocks[0][2].setTroopLayer(Troop.WORKER);
     troopBlocks[1][2].setTroopLayer(Troop.WORKER);
     troopBlocks[2][2].setTroopLayer(Troop.WORKER);
+  }
+
+  public Stone getStoneLayer () {
+    return stoneLayer;
   }
 
   public ResourceBlock getResourceBlock (int row, int column) {

@@ -5,20 +5,20 @@ import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.InputAdapter;
 
 public class Input extends InputAdapter {
+  World world;
   Board board;
   Panel leftPanel, rightPanel;
 
   Troop troop = Troop.EMPTY_TROOP;
   Stone stone = Stone.EMPTY_STONE;
 
-  public Input (Board board, Panel leftPanel, Panel rightPanel) {
-    this.board = board;
-    this.leftPanel = leftPanel;
-    this.rightPanel = rightPanel;
+  public Input (World world) {
+    this.world = world;
+    this.board = world.board;
+    this.leftPanel = world.leftPanel;
+    this.rightPanel = world.rightPanel;
 
     Gdx.input.setInputProcessor(this);
-
-    World.gameState = GameState.WHITE_TURN;
   }
 
   @Override
@@ -45,24 +45,30 @@ public class Input extends InputAdapter {
                 && row < (rightPanel.getX() / Block.BLOCK_SIZE) + Panel.PANEL_WIDHT
                 && column < Board.BOARD_SIZE) {
       clickOnPanel(rightPanel, row - rightPanel.getX() / Block.BLOCK_SIZE, column);
+    } else {
+      clearSelection();
     }
   }
 
   public void clickOnBoard (int row, int column) {
-    board.setTroopAt(troop, row, column);
-    board.setStoneAt(stone, row, column);
-    troop = Troop.EMPTY_TROOP;
-    stone = Stone.EMPTY_STONE;
+    if (board.getTroopAt(row, column).hasLayer(Troop.EMPTY_TROOP)) {
+      board.setTroopAt(troop, row, column);
+      board.setStoneAt(stone, row, column);
+
+      clearSelection();
+    }
   }
 
   public void clickOnPanel (Panel panel, int row, int column) {
-    if (  row == panel.getEndTurnButton().getRow()
-          && column == panel.getEndTurnButton().getColumn() ) {
-      endTurn();
-    }
+    if (canClickOnPanel(panel)) {
+      if (  row == panel.getEndTurnButton().getRow()
+            && column == panel.getEndTurnButton().getColumn() ) {
+        endTurn();
+      }
 
-    troop = getTroopOnClick(panel, row, column);
-    stone = getStoneOnclick(panel, row, column);
+      troop = getTroopOnClick(panel, row, column);
+      stone = getStoneOnclick(panel, row, column);
+    }
   }
 
   public Troop getTroopOnClick (Panel panel, int row, int column) {
@@ -89,7 +95,25 @@ public class Input extends InputAdapter {
     }
   }
 
+  public void clearSelection () {
+    troop = Troop.EMPTY_TROOP;
+    stone = Stone.EMPTY_STONE;
+  }
+
   public void endTurn () {
+    if (World.gameState == GameState.BLACK_TURN) {
+      World.changeGameState(GameState.WHITE_TURN);
+    } else if (World.gameState == GameState.WHITE_TURN) {
+      World.changeGameState(GameState.BLACK_TURN);
+    }
     System.out.println("End Turn");
+  }
+
+  public boolean canClickOnPanel (Panel panel) {
+    boolean canClick = (panel.getStoneLayer() == Stone.BLACK
+                            && World.gameState == GameState.BLACK_TURN)
+                            || (panel.getStoneLayer() == Stone.WHITE
+                            && World.gameState == GameState.WHITE_TURN);
+    return canClick;
   }
 }
