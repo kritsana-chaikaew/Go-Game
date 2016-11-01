@@ -16,9 +16,9 @@ public class Assets {
   public static Texture ironImage;
   public static Texture cropImage;
 
-  public static Texture hoverImage;
-
-  public static Texture workerImage;
+  public static Texture swordImage;
+  public static Texture shieldImage;
+  public static Texture bowImage;
 
   public static Texture endTurnImage;
 
@@ -40,9 +40,9 @@ public class Assets {
     ironImage = loadTexture("iron.png");
     cropImage = loadTexture("crop.png");
 
-    hoverImage = loadTexture("hover.png");
-
-    workerImage = loadTexture("worker.png");
+    swordImage = loadTexture("sword.png");
+    shieldImage = loadTexture("shield.png");
+    bowImage = loadTexture("bow.png");
 
     endTurnImage = loadTexture("end_turn.png");
   }

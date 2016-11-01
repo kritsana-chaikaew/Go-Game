@@ -46,8 +46,12 @@ public class WorldRenderer {
       drawBlock(Assets.whiteStoneImage, row, column);
     }
 
-    if (world.input.troop == Troop.WORKER) {
-      drawBlock(Assets.workerImage, row, column);
+    if (world.input.troop == Troop.SWORDMAN) {
+      drawBlock(Assets.swordImage, row, column);
+    } else if (world.input.troop == Troop.BOWMAN) {
+      drawBlock(Assets.bowImage, row, column);
+    } else if (world.input.troop == Troop.GUARDIAN) {
+      drawBlock(Assets.shieldImage, row, column);
     }
 
   }

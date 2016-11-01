@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class Panel {
-  public static final int PANEL_WIDHT = 4;
+  public static final int PANEL_WIDHT = 5;
   public static final int PANEL_HEIGHT = Board.BOARD_SIZE;
 
   World world;
@@ -65,13 +65,13 @@ public class Panel {
     resourceBlocks[2][0].setResourceLayer(Resource.IRON);
     resourceBlocks[3][0].setResourceLayer(Resource.CROP);
 
+    stoneBlocks[0][1].setStoneLayer(stoneLayer);
     stoneBlocks[0][2].setStoneLayer(stoneLayer);
-    stoneBlocks[1][2].setStoneLayer(stoneLayer);
-    stoneBlocks[2][2].setStoneLayer(stoneLayer);
+    stoneBlocks[0][3].setStoneLayer(stoneLayer);
 
-    troopBlocks[0][2].setTroopLayer(Troop.WORKER);
-    troopBlocks[1][2].setTroopLayer(Troop.WORKER);
-    troopBlocks[2][2].setTroopLayer(Troop.WORKER);
+    troopBlocks[0][1].setTroopLayer(Troop.SWORDMAN);
+    troopBlocks[0][2].setTroopLayer(Troop.BOWMAN);
+    troopBlocks[0][3].setTroopLayer(Troop.GUARDIAN);
   }
 
   public Stone getStoneLayer () {
@@ -162,7 +162,7 @@ public class Panel {
     } else if (World.gameState == GameState.WHITE_TURN) {
       World.changeGameState(GameState.BLACK_TURN);
     }
-    
+
     beginTurn = false;
   }
 

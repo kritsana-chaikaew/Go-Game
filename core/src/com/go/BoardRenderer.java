@@ -59,8 +59,15 @@ public class BoardRenderer {
   }
 
   public void renderTroopLayer (TroopBlock troopBlock) {
-    if (troopBlock.getTroopLayer() == Troop.WORKER) {
-      drawBlock(Assets.workerImage, troopBlock.getRow(), troopBlock.getColumn());
+    int row = troopBlock.getRow();
+    int column = troopBlock.getColumn();
+
+    if (troopBlock.hasLayer(Troop.SWORDMAN)) {
+      drawBlock(Assets.swordImage, row, column);
+    } else if (troopBlock.hasLayer(Troop.BOWMAN)) {
+      drawBlock(Assets.bowImage, row, column);
+    } else if (troopBlock.hasLayer(Troop.GUARDIAN)) {
+      drawBlock(Assets.shieldImage, row, column);
     }
   }
 }
