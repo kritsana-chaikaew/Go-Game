@@ -20,6 +20,8 @@ public class Panel {
 
   private Stone stoneLayer;
 
+  private boolean beginTurn = false;
+
 
   int wood = 0;
   int clay = 0;
@@ -106,6 +108,10 @@ public class Panel {
     setResourceRate(Resource.CLAY, coutOccupyResource(Resource.CLAY));
     setResourceRate(Resource.IRON, coutOccupyResource(Resource.IRON));
     setResourceRate(Resource.CROP, coutOccupyResource(Resource.CROP));
+
+    if (isMyTurn() && !beginTurn) {
+      beginTurn();
+    }
   }
 
   public void setResourceRate (Resource resource, int value) {
@@ -141,13 +147,13 @@ public class Panel {
         }
       }
     }
-    System.out.println("occupy: " + occupy);
 
     return occupy;
   }
 
   public void beginTurn () {
     updateResource();
+    beginTurn = true;
   }
 
   public void endTurn () {
@@ -156,6 +162,8 @@ public class Panel {
     } else if (World.gameState == GameState.WHITE_TURN) {
       World.changeGameState(GameState.BLACK_TURN);
     }
+    
+    beginTurn = false;
   }
 
   public boolean isMyTurn () {
