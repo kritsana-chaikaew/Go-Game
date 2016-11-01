@@ -61,9 +61,8 @@ public class Input extends InputAdapter {
 
   public void clickOnPanel (Panel panel, int row, int column) {
     if (canClickOnPanel(panel)) {
-      if (  row == panel.getEndTurnButton().getRow()
-            && column == panel.getEndTurnButton().getColumn() ) {
-        endTurn();
+      if ( isEndTurnClick(panel, row, column) ) {
+        panel.endTurn();
       }
 
       troop = getTroopOnClick(panel, row, column);
@@ -100,20 +99,16 @@ public class Input extends InputAdapter {
     stone = Stone.EMPTY_STONE;
   }
 
-  public void endTurn () {
-    if (World.gameState == GameState.BLACK_TURN) {
-      World.changeGameState(GameState.WHITE_TURN);
-    } else if (World.gameState == GameState.WHITE_TURN) {
-      World.changeGameState(GameState.BLACK_TURN);
-    }
-    System.out.println("End Turn");
-  }
-
   public boolean canClickOnPanel (Panel panel) {
     boolean canClick = (panel.getStoneLayer() == Stone.BLACK
                             && World.gameState == GameState.BLACK_TURN)
                             || (panel.getStoneLayer() == Stone.WHITE
                             && World.gameState == GameState.WHITE_TURN);
     return canClick;
+  }
+
+  public boolean isEndTurnClick(Panel panel, int row, int column) {
+    return  row == panel.getEndTurnButton().getRow()
+            && column == panel.getEndTurnButton().getColumn();
   }
 }

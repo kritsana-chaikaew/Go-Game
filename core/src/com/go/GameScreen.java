@@ -27,7 +27,7 @@ public class GameScreen extends ScreenAdapter{
   }
 
   public void update (float delta) {
-    world.update(delta);
+    world.update();
   }
 
   public void draw () {

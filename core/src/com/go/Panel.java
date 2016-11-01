@@ -7,6 +7,8 @@ public class Panel {
   public static final int PANEL_WIDHT = 4;
   public static final int PANEL_HEIGHT = Board.BOARD_SIZE;
 
+  World world;
+
   private int x;
   private int y;
 
@@ -32,10 +34,11 @@ public class Panel {
   int totalWorker = 0;
   int trainingWorker = 0;
 
-  public Panel (int x, int y, Stone stoneLayer) {
+  public Panel (int x, int y, Stone stoneLayer, World world) {
     this.x = x;
     this.y = y;
     this.stoneLayer = stoneLayer;
+    this.world = world;
 
     setupPanel();
   }
@@ -99,25 +102,67 @@ public class Panel {
 
 
   public void update () {
-    updateWood();
-    updateClay();
-    updateIron();
-    updateCrop();
+    setResourceRate(Resource.WOOD, coutOccupyResource(Resource.WOOD));
+    setResourceRate(Resource.CLAY, coutOccupyResource(Resource.CLAY));
+    setResourceRate(Resource.IRON, coutOccupyResource(Resource.IRON));
+    setResourceRate(Resource.CROP, coutOccupyResource(Resource.CROP));
   }
 
-  public void updateWood () {
+  public void setResourceRate (Resource resource, int value) {
+    if (resource == Resource.WOOD) {
+      woodRate = value;
+    }
+    if (resource == Resource.CLAY) {
+      clayRate = value;
+    }
+    if (resource == Resource.IRON) {
+      ironRate = value;
+    }
+    if (resource == Resource.CROP) {
+      cropRate = value;
+    }
+  }
+
+  public void updateResource () {
     wood += woodRate;
-  }
-
-  public void updateClay () {
     clay += clayRate;
-  }
-
-  public void updateIron () {
     iron += ironRate;
-  }
-
-  public void updateCrop () {
     crop += cropRate;
   }
+
+  public int coutOccupyResource (Resource resource) {
+    int occupy = 0;
+
+    for (int i = 0; i < Board.BOARD_SIZE; i++) {
+      for (int j = 0; j < Board.BOARD_SIZE; j++) {
+        if (world.getBoard().getStoneAt(i, j).hasLayer(stoneLayer)
+            && world.board.getResourceAt(i ,j).hasLayer(resource)) {
+          occupy++;
+        }
+      }
+    }
+    System.out.println("occupy: " + occupy);
+
+    return occupy;
+  }
+
+  public void beginTurn () {
+    updateResource();
+  }
+
+  public void endTurn () {
+    if (World.gameState == GameState.BLACK_TURN) {
+      World.changeGameState(GameState.WHITE_TURN);
+    } else if (World.gameState == GameState.WHITE_TURN) {
+      World.changeGameState(GameState.BLACK_TURN);
+    }
+  }
+
+  public boolean isMyTurn () {
+    return  World.gameState == GameState.BLACK_TURN
+            && stoneLayer == Stone.BLACK
+            || World.gameState == GameState.WHITE_TURN
+            && stoneLayer == Stone.WHITE;
+  }
+
 }

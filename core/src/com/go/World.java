@@ -22,14 +22,20 @@ public class World {
           (GoGame.SCREEN_WIDTH - (Panel.PANEL_WIDHT * Block.BLOCK_SIZE)) /
           Block.BLOCK_SIZE * Block.BLOCK_SIZE;
 
-    leftPanel = new Panel(0, 0, Stone.BLACK);
+    leftPanel = new Panel(0, 0, Stone.BLACK, this);
     board = new Board(boardPosition, 0);
-    rightPanel = new Panel(rightPanelPosition, 0, Stone.WHITE);
+    rightPanel = new Panel(rightPanelPosition, 0, Stone.WHITE, this);
     input = new Input(this);
   }
 
-  public void update (float delta) {
-    board.update(delta);
+  public void update () {
+    board.update();
+    leftPanel.update();
+    rightPanel.update();
+  }
+
+  public Board getBoard () {
+    return board;
   }
 
   public static void changeGameState (GameState gameState) {
