@@ -11,6 +11,7 @@ public class Input extends InputAdapter {
 
   TroopBlock troopBlock;
   Stone stone = Stone.EMPTY_STONE;
+  Panel lastClickPanel;
 
   public Input (World world) {
     this.world = world;
@@ -56,18 +57,30 @@ public class Input extends InputAdapter {
       board.setTroopAt(troopBlock, row, column);
       board.setStoneAt(stone, row, column);
 
+      if (troopBlock.hasLayer(Troop.SWORDMAN)) {
+        lastClickPanel.availableSwordman--;
+      } else if (troopBlock.hasLayer(Troop.BOWMAN)) {
+        lastClickPanel.availableBowman--;
+      } else if (troopBlock.hasLayer(Troop.GUARDIAN)) {
+        lastClickPanel.availableGuardian--;
+      }
+
       clearSelection();
     }
   }
 
   public void clickOnPanel (Panel panel, int row, int column) {
     if (canClickOnPanel(panel)) {
+      lastClickPanel = panel;
+
       if ( isEndTurnClick(panel, row, column) ) {
         panel.endTurn();
       }
 
-      troopBlock = getTroopBlockOnClick(panel, row, column);
-      stone = getStoneOnclick(panel, row, column);
+      if (availableTroop(panel, getTroopBlockOnClick(panel, row, column) ) > 0) {
+        troopBlock = getTroopBlockOnClick(panel, row, column);
+        stone = getStoneOnclick(panel, row, column);
+      }
     }
   }
 
@@ -111,5 +124,17 @@ public class Input extends InputAdapter {
   public boolean isEndTurnClick(Panel panel, int row, int column) {
     return  row == panel.getEndTurnButton().getRow()
             && column == panel.getEndTurnButton().getColumn();
+  }
+
+  public int availableTroop (Panel panel, TroopBlock troopBlock) {
+    if (troopBlock.hasLayer(Troop.SWORDMAN)) {
+      return panel.availableSwordman;
+    } else if (troopBlock.hasLayer(Troop.BOWMAN)) {
+      return panel.availableBowman;
+    } else if (troopBlock.hasLayer(Troop.GUARDIAN)) {
+      return panel.availableGuardian;
+    } else {
+      return 0;
+    }
   }
 }

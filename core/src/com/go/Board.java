@@ -90,6 +90,7 @@ public class Board {
       troopBlocks[row][column].setHP(troopBlock.getHP());
       troopBlocks[row][column].setDamage(troopBlock.getDamage());
       troopBlocks[row][column].setAttackRange(troopBlock.getAttackRange());
+      troopBlocks[row][column].setCost(troopBlock.getCost());
     }
   }
 

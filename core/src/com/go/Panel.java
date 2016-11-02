@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class Panel {
-  public static final int PANEL_WIDHT = 5;
+  public static final int PANEL_WIDHT = 6;
   public static final int PANEL_HEIGHT = Board.BOARD_SIZE;
 
   World world;
@@ -23,18 +23,19 @@ public class Panel {
   private boolean beginTurn = false;
 
 
-  int wood = 0;
-  int clay = 0;
-  int iron = 0;
-  int crop = 0;
+  int wood;
+  int clay;
+  int iron;
+  int crop;
 
-  int woodRate = 0;
-  int clayRate = 0;
-  int ironRate = 0;
-  int cropRate = 0;
+  int woodRate;
+  int clayRate;
+  int ironRate;
+  int cropRate;
 
-  int totalWorker = 0;
-  int trainingWorker = 0;
+  int availableSwordman = 1;
+  int availableBowman = 1;
+  int availableGuardian = 1;
 
   public Panel (int x, int y, Stone stoneLayer, World world) {
     this.x = x;
@@ -60,10 +61,10 @@ public class Panel {
 
     endTurnButton = new Block(0, 4);
 
-    resourceBlocks[0][0].setResourceLayer(Resource.WOOD);
-    resourceBlocks[1][0].setResourceLayer(Resource.CLAY);
-    resourceBlocks[2][0].setResourceLayer(Resource.IRON);
-    resourceBlocks[3][0].setResourceLayer(Resource.CROP);
+    resourceBlocks[1][0].setResourceLayer(Resource.WOOD);
+    resourceBlocks[2][0].setResourceLayer(Resource.CLAY);
+    resourceBlocks[3][0].setResourceLayer(Resource.IRON);
+    resourceBlocks[4][0].setResourceLayer(Resource.CROP);
 
     stoneBlocks[0][1].setStoneLayer(stoneLayer);
     stoneBlocks[0][2].setStoneLayer(stoneLayer);
@@ -84,6 +85,10 @@ public class Panel {
     troopBlocks[0][1].setAttackRange(1);
     troopBlocks[0][2].setAttackRange(2);
     troopBlocks[0][3].setAttackRange(0);
+
+    troopBlocks[0][1].setCost(new Cost(1, 2, 3, 2));
+    troopBlocks[0][2].setCost(new Cost(3, 1, 1, 1));
+    troopBlocks[0][3].setCost(new Cost(2, 3, 2, 3));
   }
 
   public Stone getStoneLayer () {
@@ -149,7 +154,7 @@ public class Panel {
   }
 
   public int coutOccupyResource (Resource resource) {
-    int occupy = 0;
+    int occupy = 1;
 
     for (int i = 0; i < Board.BOARD_SIZE; i++) {
       for (int j = 0; j < Board.BOARD_SIZE; j++) {
@@ -185,6 +190,29 @@ public class Panel {
             && stoneLayer == Stone.BLACK
             || World.gameState == GameState.WHITE_TURN
             && stoneLayer == Stone.WHITE;
+  }
+
+  public boolean isEnoughResource (Cost cost) {
+    return  isEnoughWood(cost.wood)
+            && isEnoughClay(cost.clay)
+            && isEnoughIron(cost.iron)
+            && isEnoughCrop(cost.crop);
+  }
+
+  public boolean isEnoughWood (int cost) {
+    return wood >= cost;
+  }
+
+  public boolean isEnoughClay (int cost) {
+    return clay >= cost;
+  }
+
+  public boolean isEnoughIron (int cost) {
+    return iron >= cost;
+  }
+
+  public boolean isEnoughCrop (int cost) {
+    return crop >= cost;
   }
 
 }

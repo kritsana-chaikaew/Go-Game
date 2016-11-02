@@ -6,9 +6,12 @@ public class TroopBlock extends Block {
   private int hitPoint = 0;
   private int damage = 0;
   private int attackRange = 0;
+  private Cost cost;
 
   public TroopBlock (int row, int column) {
     super(row, column);
+
+    cost = new Cost(0, 0, 0, 0);
   }
 
   public void setTroopLayer (Troop troopLayer) {
@@ -49,5 +52,16 @@ public class TroopBlock extends Block {
 
   public void attack (TroopBlock target) {
     target.setHP(target.getHP() - damage);
+  }
+
+  public void setCost (Cost cost) {
+    this.cost.wood = cost.wood;
+    this.cost.clay = cost.clay;
+    this.cost.iron = cost.iron;
+    this.cost.crop = cost.crop;
+  }
+
+  public Cost getCost() {
+    return cost;
   }
 }

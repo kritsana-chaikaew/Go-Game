@@ -39,20 +39,20 @@ public class PanelRenderer {
 
     if (resourceLayer == Resource.WOOD) {
       drawBlock(Assets.woodImage, row, column);
-      drawFont("" + panel.wood + "", row, column, 16, 40, Color.BLACK);
-      drawFont("+" + panel.woodRate + "", row, column, 30, 40, Color.GREEN);
+      drawFont("" + panel.wood, row, column, 16, 40, Color.BLACK);
+      drawFont("+" + panel.woodRate, row, column, 30, 40, Color.GREEN);
     } else if (resourceLayer == Resource.CLAY) {
       drawBlock(Assets.clayImage, row, column);
-      drawFont("" + panel.clay + "", row, column, 16, 40, Color.BLACK);
-      drawFont("+" + panel.clayRate + "", row, column, 30, 40, Color.GREEN);
+      drawFont("" + panel.clay, row, column, 16, 40, Color.BLACK);
+      drawFont("+" + panel.clayRate, row, column, 30, 40, Color.GREEN);
     } else if (resourceLayer == Resource.IRON) {
       drawBlock(Assets.ironImage, row, column);
-      drawFont("" + panel.iron + "", row, column, 16, 40, Color.BLACK);
-      drawFont("+" + panel.ironRate + "", row, column, 30, 40, Color.GREEN);
+      drawFont("" + panel.iron, row, column, 16, 40, Color.BLACK);
+      drawFont("+" + panel.ironRate, row, column, 30, 40, Color.GREEN);
     } else if (resourceLayer == Resource.CROP) {
       drawBlock(Assets.cropImage, row, column);
-      drawFont("" + panel.crop + "", row, column, 16, 40, Color.BLACK);
-      drawFont("+" + panel.cropRate + "", row, column, 30, 40, Color.GREEN);
+      drawFont("" + panel.crop, row, column, 16, 40, Color.BLACK);
+      drawFont("+" + panel.cropRate, row, column, 30, 40, Color.GREEN);
     }
   }
 
@@ -74,15 +74,28 @@ public class PanelRenderer {
 
     if (troopBlock.hasLayer(Troop.SWORDMAN)) {
       drawBlock(Assets.swordImage, row, column);
+      drawBlock(Assets.endTurnImage, row + 5, column);
+      drawBlock(Assets.gridImage, row + 5, column);
+      drawFont("" + panel.availableSwordman, row + 5, column, 30, 40, Color.GREEN);
     } else if (troopBlock.hasLayer(Troop.BOWMAN)) {
+      drawBlock(Assets.endTurnImage, row + 5, column);
+      drawBlock(Assets.gridImage, row + 5, column);
       drawBlock(Assets.bowImage, row, column);
+      drawFont("" + panel.availableBowman, row + 5, column, 30, 40, Color.GREEN);
     } else if (troopBlock.hasLayer(Troop.GUARDIAN)) {
+      drawBlock(Assets.endTurnImage, row + 5, column);
+      drawBlock(Assets.gridImage, row + 5, column);
       drawBlock(Assets.shieldImage, row, column);
+      drawFont("" + panel.availableGuardian, row + 5, column, 30, 40, Color.GREEN);
     }
 
     if ( !troopBlock.hasLayer(Troop.EMPTY_TROOP) ) {
       drawFont("" + troopBlock.getHP(), row, column, 30, 42, Color.RED);
       drawFont("" + troopBlock.getDamage(), row, column, 30, 24, Color.BLUE);
+      drawFontCost(troopBlock, 1, 30, 40);
+      drawFontCost(troopBlock, 2, 30, 40);
+      drawFontCost(troopBlock, 3, 30, 40);
+      drawFontCost(troopBlock, 4, 30, 40);
     }
   }
 
@@ -120,6 +133,31 @@ public class PanelRenderer {
     game.batch.begin();
     font.draw(game.batch, string, r, c);
     game.batch.end();
+  }
+
+  public void drawFontCost (TroopBlock troopBlock, int type, int x, int y) {
+    int row = troopBlock.getRow();
+    int column = troopBlock.getColumn();
+    Cost cost = troopBlock.getCost();
+
+    if (type == 1 && panel.isEnoughWood(cost.wood)) {
+      drawFont("" + cost.wood, row + type, column, x, y, Color.BLUE);
+    } else if (type == 2 && panel.isEnoughClay(cost.clay)) {
+      drawFont("" + cost.clay, row + type, column, x, y, Color.BLUE);
+    } else if (type == 3 && panel.isEnoughIron(cost.iron)) {
+      drawFont("" + cost.iron, row + type, column, x, y, Color.BLUE);
+    } else if (type == 4 && panel.isEnoughCrop(cost.crop)) {
+      drawFont("" + cost.crop, row + type, column, x, y, Color.BLUE);
+    } else if (type == 1 && !panel.isEnoughWood(cost.wood)) {
+      drawFont("" + cost.wood, row + type, column, x, y, Color.RED);
+    } else if (type == 2 && !panel.isEnoughClay(cost.clay)) {
+      drawFont("" + cost.clay, row + type, column, x, y, Color.RED);
+    } else if (type == 3 && !panel.isEnoughIron(cost.iron)) {
+      drawFont("" + cost.iron, row + type, column, x, y, Color.RED);
+    } else if (type == 4 && !panel.isEnoughCrop(cost.crop)) {
+      drawFont("" + cost.crop, row + type, column, x, y, Color.RED);
+    }
+
   }
 
 }
