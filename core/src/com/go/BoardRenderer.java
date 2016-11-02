@@ -89,8 +89,8 @@ public class BoardRenderer {
     }
 
     if ( !troopBlock.hasLayer(Troop.EMPTY_TROOP) ) {
-      drawFont("" + troopBlock.getHP(), row, column, 30, 42, Color.RED);
-      drawFont("" + troopBlock.getDamage(), row, column, 30, 24, Color.BLUE);
+      drawFont("" + troopBlock.getHP(), row, column, 28, 42, Color.RED);
+      drawFont("" + troopBlock.getDamage(), row, column, 28, 24, Color.BLUE);
     }
   }
 }

@@ -2,6 +2,7 @@ package com.go;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.lang.Math;
 
 public class Panel {
   public static final int PANEL_WIDHT = 6;
@@ -33,9 +34,13 @@ public class Panel {
   int ironRate;
   int cropRate;
 
-  int availableSwordman = 1;
-  int availableBowman = 1;
-  int availableGuardian = 1;
+  int availableSwordMan;
+  int availableBowMan;
+  int availableGuardian;
+
+  int currentSwordMan;
+  int currentBowMan;
+  int currentGuardian;
 
   public Panel (int x, int y, Stone stoneLayer, World world) {
     this.x = x;
@@ -129,6 +134,10 @@ public class Panel {
     if (isMyTurn() && !beginTurn) {
       beginTurn();
     }
+
+    availableSwordMan = countTrain(troopBlocks[0][1]);
+    availableBowMan = countTrain(troopBlocks[0][2]);
+    availableGuardian = countTrain(troopBlocks[0][3]);
   }
 
   public void setResourceRate (Resource resource, int value) {
@@ -166,6 +175,13 @@ public class Panel {
     }
 
     return occupy;
+  }
+
+  public void reduceResource (Cost cost) {
+    wood -= cost.wood;
+    clay -= cost.clay;
+    iron -= cost.iron;
+    crop -= cost.crop;
   }
 
   public void beginTurn () {
@@ -213,6 +229,46 @@ public class Panel {
 
   public boolean isEnoughCrop (int cost) {
     return crop >= cost;
+  }
+
+  public int countTrain (TroopBlock troopBlock) {
+    if (isEnoughResource(troopBlock.getCost())) {
+      int fromWood = wood / troopBlock.getCost().wood;
+      int fromClay = clay / troopBlock.getCost().clay;
+      int fromIron = iron / troopBlock.getCost().iron;
+      int fromCrop = crop / troopBlock.getCost().crop;
+      return Math.min(Math.min(Math.min(fromWood, fromClay), fromIron), fromCrop);
+    }
+
+    return 0;
+  }
+
+  public void train (Troop troopLayer) {
+    if (troopLayer == Troop.SWORDMAN) {
+      availableSwordMan--;
+      currentSwordMan++;
+      reduceResource(troopBlocks[0][1].getCost());
+    } else if (troopLayer == Troop.BOWMAN) {
+      availableBowMan--;
+      currentBowMan++;
+      reduceResource(troopBlocks[0][2].getCost());
+    } else if (troopLayer == Troop.GUARDIAN) {
+      availableGuardian--;
+      currentGuardian++;
+      reduceResource(troopBlocks[0][3].getCost());
+    }
+  }
+
+  public int getCurrentTroop (TroopBlock troopBlock) {
+    if (troopBlock.hasLayer(Troop.SWORDMAN)) {
+      return currentSwordMan;
+    } else if (troopBlock.hasLayer(Troop.BOWMAN)) {
+      return currentBowMan;
+    } else if (troopBlock.hasLayer(Troop.GUARDIAN)) {
+      return currentGuardian;
+    } else {
+      return 0;
+    }
   }
 
 }

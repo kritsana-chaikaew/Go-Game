@@ -58,11 +58,11 @@ public class Input extends InputAdapter {
       board.setStoneAt(stone, row, column);
 
       if (troopBlock.hasLayer(Troop.SWORDMAN)) {
-        lastClickPanel.availableSwordman--;
+        lastClickPanel.currentSwordMan--;
       } else if (troopBlock.hasLayer(Troop.BOWMAN)) {
-        lastClickPanel.availableBowman--;
+        lastClickPanel.currentBowMan--;
       } else if (troopBlock.hasLayer(Troop.GUARDIAN)) {
-        lastClickPanel.availableGuardian--;
+        lastClickPanel.currentGuardian--;
       }
 
       clearSelection();
@@ -73,11 +73,15 @@ public class Input extends InputAdapter {
     if (canClickOnPanel(panel)) {
       lastClickPanel = panel;
 
-      if ( isEndTurnClick(panel, row, column) ) {
+      if ( isEndTurnButtonClick(panel, row, column) ) {
         panel.endTurn();
       }
 
-      if (availableTroop(panel, getTroopBlockOnClick(panel, row, column) ) > 0) {
+      if ( isTrainButtonClick(panel, row, column) ) {
+        panel.train(getTroopBlockOnClick(panel, row - 5, column).getTroopLayer());
+      }
+
+      if (panel.getCurrentTroop( getTroopBlockOnClick(panel, row, column) ) > 0) {
         troopBlock = getTroopBlockOnClick(panel, row, column);
         stone = getStoneOnclick(panel, row, column);
       }
@@ -85,8 +89,8 @@ public class Input extends InputAdapter {
   }
 
   public TroopBlock getTroopBlockOnClick (Panel panel, int row, int column) {
-    if (row < Panel.PANEL_WIDHT
-        && column < Panel.PANEL_HEIGHT) {
+    if (row >=0 && row < Panel.PANEL_WIDHT
+        && column >=0 && column < Panel.PANEL_HEIGHT) {
       return panel.getTroopBlock(row, column);
     } else {
       return null;
@@ -121,20 +125,16 @@ public class Input extends InputAdapter {
     return canClick;
   }
 
-  public boolean isEndTurnClick(Panel panel, int row, int column) {
+  public boolean isEndTurnButtonClick(Panel panel, int row, int column) {
     return  row == panel.getEndTurnButton().getRow()
             && column == panel.getEndTurnButton().getColumn();
   }
 
-  public int availableTroop (Panel panel, TroopBlock troopBlock) {
-    if (troopBlock.hasLayer(Troop.SWORDMAN)) {
-      return panel.availableSwordman;
-    } else if (troopBlock.hasLayer(Troop.BOWMAN)) {
-      return panel.availableBowman;
-    } else if (troopBlock.hasLayer(Troop.GUARDIAN)) {
-      return panel.availableGuardian;
-    } else {
-      return 0;
+  public boolean isTrainButtonClick (Panel panel, int row, int column) {
+    if (getTroopBlockOnClick(panel, row - 5, column) != null) {
+      return !getTroopBlockOnClick(panel, row - 5, column).hasLayer(Troop.EMPTY_TROOP);
     }
+
+    return false;
   }
 }

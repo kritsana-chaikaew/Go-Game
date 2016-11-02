@@ -3,7 +3,7 @@ package com.go;
 import com.badlogic.gdx.math.MathUtils;
 
 public class Board {
-  public static final int BOARD_SIZE = 8;
+  public static final int BOARD_SIZE = 5;
 
   ResourceBlock [][] resourceBlocks;
   StoneBlock [][] stoneBlocks;

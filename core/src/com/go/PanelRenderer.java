@@ -74,24 +74,24 @@ public class PanelRenderer {
 
     if (troopBlock.hasLayer(Troop.SWORDMAN)) {
       drawBlock(Assets.swordImage, row, column);
-      drawBlock(Assets.endTurnImage, row + 5, column);
-      drawBlock(Assets.gridImage, row + 5, column);
-      drawFont("" + panel.availableSwordman, row + 5, column, 30, 40, Color.GREEN);
+      drawBlock(Assets.trainImage, row + 5, column);
+      drawFont("" + panel.currentSwordMan, row + 5, column, 28, 60, Color.BLACK);
+      drawFont("" + panel.availableSwordMan, row + 5, column, 28, 20, Color.GREEN);
     } else if (troopBlock.hasLayer(Troop.BOWMAN)) {
-      drawBlock(Assets.endTurnImage, row + 5, column);
-      drawBlock(Assets.gridImage, row + 5, column);
+      drawBlock(Assets.trainImage, row + 5, column);
       drawBlock(Assets.bowImage, row, column);
-      drawFont("" + panel.availableBowman, row + 5, column, 30, 40, Color.GREEN);
+      drawFont("" + panel.currentBowMan, row + 5, column, 28, 60, Color.BLACK);
+      drawFont("" + panel.availableBowMan, row + 5, column, 28, 20, Color.GREEN);
     } else if (troopBlock.hasLayer(Troop.GUARDIAN)) {
-      drawBlock(Assets.endTurnImage, row + 5, column);
-      drawBlock(Assets.gridImage, row + 5, column);
+      drawBlock(Assets.trainImage, row + 5, column);
       drawBlock(Assets.shieldImage, row, column);
-      drawFont("" + panel.availableGuardian, row + 5, column, 30, 40, Color.GREEN);
+      drawFont("" + panel.currentGuardian, row + 5, column, 28, 60, Color.BLACK);
+      drawFont("" + panel.availableGuardian, row + 5, column, 28, 20, Color.GREEN);
     }
 
     if ( !troopBlock.hasLayer(Troop.EMPTY_TROOP) ) {
-      drawFont("" + troopBlock.getHP(), row, column, 30, 42, Color.RED);
-      drawFont("" + troopBlock.getDamage(), row, column, 30, 24, Color.BLUE);
+      drawFont("" + troopBlock.getHP(), row, column, 28, 42, Color.RED);
+      drawFont("" + troopBlock.getDamage(), row, column, 28, 24, Color.BLUE);
       drawFontCost(troopBlock, 1, 30, 40);
       drawFontCost(troopBlock, 2, 30, 40);
       drawFontCost(troopBlock, 3, 30, 40);

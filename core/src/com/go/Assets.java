@@ -22,6 +22,8 @@ public class Assets {
 
   public static Texture endTurnImage;
 
+  public static Texture trainImage;
+
 
   public static Texture loadTexture (String file) {
 		return new Texture(Gdx.files.internal(file));
@@ -45,5 +47,7 @@ public class Assets {
     bowImage = loadTexture("bow.png");
 
     endTurnImage = loadTexture("end_turn.png");
+
+    trainImage = loadTexture("train.png");
   }
 }
