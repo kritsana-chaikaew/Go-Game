@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class GoGame extends Game {
 	public static final int SCREEN_WIDTH = 1280;
-	public static final int SCREEN_HEIGHT = 640;
+	public static final int SCREEN_HEIGHT = 384;
 
 	SpriteBatch batch;
 

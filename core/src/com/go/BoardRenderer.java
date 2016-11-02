@@ -24,7 +24,7 @@ public class BoardRenderer {
       for (int j = 0; j < Board.BOARD_SIZE; j++) {
         drawBlock(Assets.boardBackGroundImage, i, j);
         renderResourceLayer(board.resourceBlocks[i][j]);
-        drawBlock(Assets.gridImage, i, j);
+        //drawBlock(Assets.gridImage, i, j);
         renderStoneLayer(board.stoneBlocks[i][j]);
         renderTroopLayer(board.troopBlocks[i][j]);
       }
@@ -89,8 +89,12 @@ public class BoardRenderer {
     }
 
     if ( !troopBlock.hasLayer(Troop.EMPTY_TROOP) ) {
-      drawFont("" + troopBlock.getHP(), row, column, 28, 42, Color.RED);
-      drawFont("" + troopBlock.getDamage(), row, column, 28, 24, Color.BLUE);
+      if (troopBlock.getHP() > 9) {
+        drawFont("" + troopBlock.getHP(), row, column, 24, 38, Color.RED);
+      } else {
+        drawFont("" + troopBlock.getHP(), row, column, 28, 38, Color.RED);
+      }
+      //drawFont("" + troopBlock.getDamage(), row, column, 28, 24, Color.BLUE);
     }
   }
 }

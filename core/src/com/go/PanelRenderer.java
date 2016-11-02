@@ -39,20 +39,20 @@ public class PanelRenderer {
 
     if (resourceLayer == Resource.WOOD) {
       drawBlock(Assets.woodImage, row, column);
-      drawFont("" + panel.wood, row, column, 16, 40, Color.BLACK);
-      drawFont("+" + panel.woodRate, row, column, 30, 40, Color.GREEN);
+      drawFont("" + panel.wood, row, column, 12, 64, Color.BLACK);
+      drawFont("+" + panel.woodRate, row, column, 30, 64, Color.GREEN);
     } else if (resourceLayer == Resource.CLAY) {
       drawBlock(Assets.clayImage, row, column);
-      drawFont("" + panel.clay, row, column, 16, 40, Color.BLACK);
-      drawFont("+" + panel.clayRate, row, column, 30, 40, Color.GREEN);
+      drawFont("" + panel.clay, row, column, 12, 64, Color.BLACK);
+      drawFont("+" + panel.clayRate, row, column, 30, 64, Color.GREEN);
     } else if (resourceLayer == Resource.IRON) {
       drawBlock(Assets.ironImage, row, column);
-      drawFont("" + panel.iron, row, column, 16, 40, Color.BLACK);
-      drawFont("+" + panel.ironRate, row, column, 30, 40, Color.GREEN);
+      drawFont("" + panel.iron, row, column, 12, 64, Color.BLACK);
+      drawFont("+" + panel.ironRate, row, column, 30, 64, Color.GREEN);
     } else if (resourceLayer == Resource.CROP) {
       drawBlock(Assets.cropImage, row, column);
-      drawFont("" + panel.crop, row, column, 16, 40, Color.BLACK);
-      drawFont("+" + panel.cropRate, row, column, 30, 40, Color.GREEN);
+      drawFont("" + panel.crop, row, column, 12, 64, Color.BLACK);
+      drawFont("+" + panel.cropRate, row, column, 30, 64, Color.GREEN);
     }
   }
 
@@ -90,8 +90,12 @@ public class PanelRenderer {
     }
 
     if ( !troopBlock.hasLayer(Troop.EMPTY_TROOP) ) {
-      drawFont("" + troopBlock.getHP(), row, column, 28, 42, Color.RED);
-      drawFont("" + troopBlock.getDamage(), row, column, 28, 24, Color.BLUE);
+      if (troopBlock.getHP() > 9) {
+        drawFont("" + troopBlock.getHP(), row, column, 24, 38, Color.RED);
+      } else {
+        drawFont("" + troopBlock.getHP(), row, column, 28, 38, Color.RED);
+      }
+      //drawFont("" + troopBlock.getDamage(), row, column, 28, 24, Color.BLUE);
       drawFontCost(troopBlock, 1, 30, 40);
       drawFontCost(troopBlock, 2, 30, 40);
       drawFontCost(troopBlock, 3, 30, 40);

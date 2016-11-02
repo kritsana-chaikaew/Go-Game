@@ -30,7 +30,7 @@ public class Assets {
 	}
 
   public static void load () {
-    boardBackGroundImage = loadTexture("board_background.png");
+    boardBackGroundImage = loadTexture("grass.png");
 
     gridImage = loadTexture("grid.png");
 

@@ -3,7 +3,7 @@ package com.go;
 import com.badlogic.gdx.math.MathUtils;
 
 public class Board {
-  public static final int BOARD_SIZE = 5;
+  public static final int BOARD_SIZE = 6;
 
   ResourceBlock [][] resourceBlocks;
   StoneBlock [][] stoneBlocks;
@@ -57,10 +57,10 @@ public class Board {
     }
 
     // CUATION!!! NUMBER ALL RESOURCE MUST NOT EXCEED NUMBER OF BLOCKS
-    randomResource(Resource.WOOD, 5);
-    randomResource(Resource.CLAY, 5);
-    randomResource(Resource.IRON, 5);
-    randomResource(Resource.CROP, 5);
+    randomResource(Resource.WOOD, 4);
+    randomResource(Resource.CLAY, 4);
+    randomResource(Resource.IRON, 4);
+    randomResource(Resource.CROP, 4);
   }
 
   public void randomResource (Resource resourceLayer, int num) {

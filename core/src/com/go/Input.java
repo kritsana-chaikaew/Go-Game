@@ -36,7 +36,7 @@ public class Input extends InputAdapter {
   public void onClick (int row, int column) {
     if (row >= leftPanel.getX() / Block.BLOCK_SIZE
         && row < board.getX() / Block.BLOCK_SIZE
-        && column < Board.BOARD_SIZE) {
+        && column < Panel.PANEL_HEIGHT) {
       clickOnPanel(leftPanel, row, column);
     } else if ( row >= board.getX() / Block.BLOCK_SIZE
                 && row < (board.getX() / Block.BLOCK_SIZE) + Board.BOARD_SIZE
@@ -44,7 +44,7 @@ public class Input extends InputAdapter {
       clickOnBoard(row - board.getX() / Block.BLOCK_SIZE, column);
     } else if ( row >= rightPanel.getX() / Block.BLOCK_SIZE
                 && row < (rightPanel.getX() / Block.BLOCK_SIZE) + Panel.PANEL_WIDHT
-                && column < Board.BOARD_SIZE) {
+                && column < Panel.PANEL_HEIGHT) {
       clickOnPanel(rightPanel, row - rightPanel.getX() / Block.BLOCK_SIZE, column);
     } else {
       clearSelection();
@@ -73,7 +73,8 @@ public class Input extends InputAdapter {
     if (canClickOnPanel(panel)) {
       lastClickPanel = panel;
 
-      if ( isEndTurnButtonClick(panel, row, column) ) {
+      if (  isEndTurnButtonClick(panel, row, column)
+            && troopBlock == null) {
         panel.endTurn();
       }
 

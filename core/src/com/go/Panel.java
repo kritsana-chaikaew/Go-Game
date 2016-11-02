@@ -6,7 +6,7 @@ import java.lang.Math;
 
 public class Panel {
   public static final int PANEL_WIDHT = 6;
-  public static final int PANEL_HEIGHT = Board.BOARD_SIZE;
+  public static final int PANEL_HEIGHT = 5;
 
   World world;
 
@@ -79,12 +79,12 @@ public class Panel {
     troopBlocks[0][2].setTroopLayer(Troop.BOWMAN);
     troopBlocks[0][3].setTroopLayer(Troop.GUARDIAN);
 
-    troopBlocks[0][1].setHP(2);
-    troopBlocks[0][2].setHP(1);
-    troopBlocks[0][3].setHP(5);
+    troopBlocks[0][1].setHP(5);
+    troopBlocks[0][2].setHP(3);
+    troopBlocks[0][3].setHP(10);
 
-    troopBlocks[0][1].setDamage(1);
-    troopBlocks[0][2].setDamage(2);
+    troopBlocks[0][1].setDamage(2);
+    troopBlocks[0][2].setDamage(1);
     troopBlocks[0][3].setDamage(0);
 
     troopBlocks[0][1].setAttackRange(1);
@@ -93,7 +93,7 @@ public class Panel {
 
     troopBlocks[0][1].setCost(new Cost(1, 2, 3, 2));
     troopBlocks[0][2].setCost(new Cost(3, 1, 1, 1));
-    troopBlocks[0][3].setCost(new Cost(2, 3, 2, 3));
+    troopBlocks[0][3].setCost(new Cost(2, 2, 2, 2));
   }
 
   public Stone getStoneLayer () {
@@ -244,31 +244,32 @@ public class Panel {
   }
 
   public void train (Troop troopLayer) {
-    if (troopLayer == Troop.SWORDMAN) {
+    if (troopLayer == Troop.SWORDMAN && availableSwordMan > 0) {
       availableSwordMan--;
       currentSwordMan++;
       reduceResource(troopBlocks[0][1].getCost());
-    } else if (troopLayer == Troop.BOWMAN) {
+    } else if (troopLayer == Troop.BOWMAN && availableBowMan > 0) {
       availableBowMan--;
       currentBowMan++;
-      reduceResource(troopBlocks[0][2].getCost());
-    } else if (troopLayer == Troop.GUARDIAN) {
+      reduceResource(troopBlocks[0][2].getCost() );
+    } else if (troopLayer == Troop.GUARDIAN && availableGuardian > 0) {
       availableGuardian--;
       currentGuardian++;
-      reduceResource(troopBlocks[0][3].getCost());
+      reduceResource(troopBlocks[0][3].getCost() );
     }
   }
 
   public int getCurrentTroop (TroopBlock troopBlock) {
-    if (troopBlock.hasLayer(Troop.SWORDMAN)) {
-      return currentSwordMan;
-    } else if (troopBlock.hasLayer(Troop.BOWMAN)) {
-      return currentBowMan;
-    } else if (troopBlock.hasLayer(Troop.GUARDIAN)) {
-      return currentGuardian;
-    } else {
-      return 0;
+    if (troopBlock != null) {
+      if (troopBlock.hasLayer(Troop.SWORDMAN)) {
+        return currentSwordMan;
+      } else if (troopBlock.hasLayer(Troop.BOWMAN)) {
+        return currentBowMan;
+      } else if (troopBlock.hasLayer(Troop.GUARDIAN)) {
+        return currentGuardian;
+      }
     }
-  }
 
+    return 0;
+  }
 }

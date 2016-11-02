@@ -31,7 +31,7 @@ public class GameScreen extends ScreenAdapter{
   }
 
   public void draw () {
-    Gdx.gl.glClearColor(0, 1, 1, 1);
+    Gdx.gl.glClearColor(142f/255f, 68f/255f, 173f/255f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     worldRenderer.render();
   }

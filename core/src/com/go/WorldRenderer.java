@@ -29,15 +29,16 @@ public class WorldRenderer {
 
   public void render () {
     boardRenderer.render();
-    renderCursor();
     leftPanelRenderer.render();
     rightPanelRenderer.render();
+
+    renderCursor();
   }
 
   public void drawBlock (Texture image, int row, int column) {
     if (image != null) {
       game.batch.begin();
-      game.batch.draw(image, row, column);
+      game.batch.draw(image, row - 1, column - 1);
       game.batch.end();
     }
   }
@@ -75,10 +76,15 @@ System.out.println(r + " " + c);
       }
 
       if ( !world.input.troopBlock.hasLayer(Troop.EMPTY_TROOP) ) {
-        drawFont( "" + world.input.troopBlock.getHP(),
-                  row, column, 28, 42, Color.RED);
-        drawFont( "" + world.input.troopBlock.getDamage(),
-                  row, column, 28, 24, Color.BLUE);
+        if (world.input.troopBlock.getHP() > 9) {
+          drawFont( "" + world.input.troopBlock.getHP(),
+                    row, column, 24, 38, Color.RED);
+        } else {
+          drawFont( "" + world.input.troopBlock.getHP(),
+                    row, column, 28, 38, Color.RED);
+        }
+        //drawFont( "" + world.input.troopBlock.getDamage(),
+        //          row, column, 28, 24, Color.BLUE);
       }
     }
 
