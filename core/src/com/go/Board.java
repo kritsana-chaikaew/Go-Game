@@ -43,6 +43,11 @@ public class Board {
     return originY;
   }
 
+  public static boolean isInBoard (int i, int j) {
+    return  i >= 0 && i < BOARD_SIZE
+            && j >= 0 && j < BOARD_SIZE;
+  }
+
   public void setupBoard () {
     resourceBlocks = new ResourceBlock[BOARD_SIZE][BOARD_SIZE];
     stoneBlocks = new StoneBlock[BOARD_SIZE][BOARD_SIZE];
@@ -144,4 +149,6 @@ public class Board {
       }
     }
   }
+
+
 }

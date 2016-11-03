@@ -3,8 +3,8 @@ package com.go;
 public class Block {
   public static final int BLOCK_SIZE = 64;
 
-  private int row;
-  private int column;
+  protected int row;
+  protected int column;
 
   public Block (int row, int column) {
     this.row = row;

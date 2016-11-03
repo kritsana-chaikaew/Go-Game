@@ -64,4 +64,14 @@ public class TroopBlock extends Block {
   public Cost getCost() {
     return cost;
   }
+
+  public static boolean isInRange ( int sourceRow, int sourceColumn,
+                                    int targetRow, int targetColumn,
+                                    int range) {
+    return  !(targetRow == sourceRow && targetColumn == sourceColumn )
+            && targetRow >= (sourceRow - range)
+            && targetRow <= (sourceRow + range)
+            && targetColumn >= (sourceColumn - range)
+            && targetColumn <= (sourceColumn + range);
+  }
 }
