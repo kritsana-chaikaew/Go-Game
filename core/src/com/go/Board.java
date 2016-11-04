@@ -9,14 +9,30 @@ public class Board {
   StoneBlock [][] stoneBlocks;
   TroopBlock [][] troopBlocks;
 
-  public int originX;
-  public int originY;
+  private int x;
+  private int y;
 
   public Board (int x, int y) {
-    originX = x / 64 * 64;
-    originY = y / 64 * 64;
+    this.x = toRow(x) * Block.BLOCK_SIZE;
+    this.y = toColumn(y) * Block.BLOCK_SIZE;
 
     setupBoard();
+  }
+
+  public int toRow (int x) {
+    return x / Block.BLOCK_SIZE;
+  }
+
+  public int toColumn (int y) {
+    return y / Block.BLOCK_SIZE;
+  }
+
+  public int toX (int row) {
+    return x + (row * Block.BLOCK_SIZE);
+  }
+
+  public int toY (int column) {
+    return y + (column * Block.BLOCK_SIZE);
   }
 
   public void update () {
@@ -36,11 +52,11 @@ public class Board {
   }
 
   public int getX () {
-    return originX;
+    return x;
   }
 
   public int getY () {
-    return originY;
+    return y;
   }
 
   public static boolean isInBoard (int i, int j) {
@@ -74,6 +90,7 @@ public class Board {
     while (i < num) {
       int row = MathUtils.random(BOARD_SIZE - 1);
       int column = MathUtils.random(BOARD_SIZE - 1);
+
       if ( resourceBlocks[row][column].hasLayer(Resource.EMPTY_RESOURCE) ) {
         resourceBlocks[row][column].setResourceLayer(resourceLayer);
         i++;
@@ -120,12 +137,9 @@ public class Board {
   }
 
   public void calculateAttack (Stone stoneLayer) {
-    System.out.println("stone " + stoneLayer);
     for (int i = 0; i < BOARD_SIZE; i++) {
       for (int j = 0; j < BOARD_SIZE; j++) {
         if ( stoneBlocks[i][j].hasLayer(stoneLayer) ) {
-          System.out.println("attackInRange ");
-          System.out.println("getStone " + stoneBlocks[i][j].getStoneLayer());
           attackInRange(i, j);
         }
       }
@@ -140,7 +154,6 @@ public class Board {
     for (int i = row - a; i <= row + a; i++) {
       for (int j = column - a; j <= column + a; j++) {
         if (i >= 0 && i < BOARD_SIZE && j >= 0 && j < BOARD_SIZE) {
-          System.out.println("attack!!!");
           if ( !stoneBlocks[i][j].hasLayer( stoneBlock.getStoneLayer() )
                 && !troopBlocks[i][j].hasLayer(Troop.EMPTY_TROOP) ) {
             troopBlock.attack(troopBlocks[i][j]);

@@ -6,8 +6,6 @@ import com.badlogic.gdx.graphics.Texture;
 public class Assets {
   public static Texture boardBackGroundImage;
 
-  public static Texture gridImage;
-
   public static Texture blackStoneImage;
   public static Texture whiteStoneImage;
 
@@ -33,8 +31,6 @@ public class Assets {
 
   public static void load () {
     boardBackGroundImage = loadTexture("grass.png");
-
-    gridImage = loadTexture("grid.png");
 
     blackStoneImage = loadTexture("black.png");
     whiteStoneImage = loadTexture("white.png");

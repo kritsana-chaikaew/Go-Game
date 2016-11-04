@@ -52,7 +52,6 @@ public class WorldRenderer {
     int r = row + x;
     int c = column + y;
 
-System.out.println(r + " " + c);
     game.batch.begin();
     font.draw(game.batch, string, r, c);
     game.batch.end();
@@ -63,11 +62,10 @@ System.out.println(r + " " + c);
     int column =  ( GoGame.SCREEN_HEIGHT - Gdx.input.getY() ) /
                   Block.BLOCK_SIZE * Block.BLOCK_SIZE;
 
-    TroopBlock troopOnCursor = world.input.troopBlock;
+    TroopBlock troopOnCursor = world.input.selectedTroop;
 
     int r = (row - board.getX()) / Block.BLOCK_SIZE;
     int c = Board.BOARD_SIZE - (column - board.getY()) / Block.BLOCK_SIZE - 1;
-    System.out.println("Row on Screen " + r + "Column on Screen " + c);
 
     if (world.input.stone == Stone.BLACK) {
       drawBlock(Assets.blackStoneImage, row, column);
@@ -90,21 +88,21 @@ System.out.println(r + " " + c);
 
       if ( troopOnCursor.hasLayer(Troop.SWORDMAN) ) {
         drawBlock(Assets.swordImage, row, column);
-      } else if ( world.input.troopBlock.hasLayer(Troop.BOWMAN) ) {
+      } else if ( world.input.selectedTroop.hasLayer(Troop.BOWMAN) ) {
         drawBlock(Assets.bowImage, row, column);
-      } else if ( world.input.troopBlock.hasLayer(Troop.GUARDIAN) ) {
+      } else if ( world.input.selectedTroop.hasLayer(Troop.GUARDIAN) ) {
         drawBlock(Assets.shieldImage, row, column);
       }
 
-      if ( !world.input.troopBlock.hasLayer(Troop.EMPTY_TROOP) ) {
-        if (world.input.troopBlock.getHP() > 9) {
-          drawFont( "" + world.input.troopBlock.getHP(),
+      if ( !world.input.selectedTroop.hasLayer(Troop.EMPTY_TROOP) ) {
+        if (world.input.selectedTroop.getHP() > 9) {
+          drawFont( "" + world.input.selectedTroop.getHP(),
                     row, column, 24, 38, Color.RED);
         } else {
-          drawFont( "" + world.input.troopBlock.getHP(),
+          drawFont( "" + world.input.selectedTroop.getHP(),
                     row, column, 28, 38, Color.RED);
         }
-        //drawFont( "" + world.input.troopBlock.getDamage(),
+        //drawFont( "" + world.input.selectedTroop.getDamage(),
         //          row, column, 28, 24, Color.BLUE);
       }
     }

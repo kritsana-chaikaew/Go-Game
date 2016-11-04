@@ -9,7 +9,7 @@ public class Input extends InputAdapter {
   Board board;
   Panel leftPanel, rightPanel;
 
-  TroopBlock troopBlock;
+  TroopBlock selectedTroop;
   Stone stone = Stone.EMPTY_STONE;
   Panel lastClickPanel;
 
@@ -27,7 +27,6 @@ public class Input extends InputAdapter {
     int row = x / Block.BLOCK_SIZE;
     int column = y / Block.BLOCK_SIZE;
 
-    System.out.println(row + " " + column);
     onClick(row, column);
 
     return true;
@@ -52,16 +51,16 @@ public class Input extends InputAdapter {
   }
 
   public void clickOnBoard (int row, int column) {
-    if (troopBlock != null
+    if (selectedTroop != null
         && board.getTroopAt(row, column).hasLayer(Troop.EMPTY_TROOP) ) {
-      board.setTroopAt(troopBlock, row, column);
+      board.setTroopAt(selectedTroop, row, column);
       board.setStoneAt(stone, row, column);
 
-      if (troopBlock.hasLayer(Troop.SWORDMAN)) {
+      if (selectedTroop.hasLayer(Troop.SWORDMAN)) {
         lastClickPanel.currentSwordMan--;
-      } else if (troopBlock.hasLayer(Troop.BOWMAN)) {
+      } else if (selectedTroop.hasLayer(Troop.BOWMAN)) {
         lastClickPanel.currentBowMan--;
-      } else if (troopBlock.hasLayer(Troop.GUARDIAN)) {
+      } else if (selectedTroop.hasLayer(Troop.GUARDIAN)) {
         lastClickPanel.currentGuardian--;
       }
 
@@ -74,7 +73,7 @@ public class Input extends InputAdapter {
       lastClickPanel = panel;
 
       if (  isEndTurnButtonClick(panel, row, column)
-            && troopBlock == null) {
+            && selectedTroop == null) {
         panel.endTurn();
       }
 
@@ -83,7 +82,7 @@ public class Input extends InputAdapter {
       }
 
       if (panel.getCurrentTroop( getTroopBlockOnClick(panel, row, column) ) > 0) {
-        troopBlock = getTroopBlockOnClick(panel, row, column);
+        selectedTroop = getTroopBlockOnClick(panel, row, column);
         stone = getStoneOnclick(panel, row, column);
       }
     }
@@ -114,7 +113,7 @@ public class Input extends InputAdapter {
   }
 
   public void clearSelection () {
-    troopBlock = null;
+    selectedTroop = null;
     stone = Stone.EMPTY_STONE;
   }
 

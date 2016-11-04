@@ -25,4 +25,8 @@ public class GoGame extends Game {
 	public void dispose () {
 		batch.dispose();
 	}
+
+	public static int flipYAxis (int y) {
+		return SCREEN_HEIGHT - y;
+	}
 }
