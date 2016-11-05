@@ -1,8 +1,8 @@
 package com.go;
 
 public enum Troop {
-  EMPTY_TROOP,
-  SWORDMAN,
-  BOWMAN,
-  GUARDIAN
+    EMPTY_TROOP,
+    SWORDMAN,
+    BOWMAN,
+    GUARDIAN
 }

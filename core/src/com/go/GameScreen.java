@@ -6,33 +6,33 @@ import com.badlogic.gdx.graphics.GL20;
 
 
 public class GameScreen extends ScreenAdapter{
-  GoGame game;
-  World world;
-  WorldRenderer worldRenderer;
-  public GameScreen (GoGame game) {
-    this.game = game;
+    GoGame game;
+    World world;
+    WorldRenderer worldRenderer;
 
-    world = new World(game);
-    worldRenderer = new WorldRenderer(game, world);
-  }
+    public GameScreen(GoGame game) {
+        this.game = game;
 
-  @Override
-  public void render (float delta) {
-    draw();
-    update(delta);
-  }
+        world = new World(game);
+        worldRenderer = new WorldRenderer(game, world);
+    }
 
-  @Override
-  public void dispose () {
-  }
+    @Override
+    public void render(float delta) {
+        draw();
+        update(delta);
+    }
 
-  public void update (float delta) {
-    world.update();
-  }
+    @Override
+    public void dispose() {}
 
-  public void draw () {
-    Gdx.gl.glClearColor(233f/255f, 212f/255f, 96f/255f, 1);
+    public void update(float delta) {
+        world.update();
+    }
+
+    public void draw() {
+        Gdx.gl.glClearColor(233f/255f, 212f/255f, 96f/255f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-    worldRenderer.render();
-  }
+        worldRenderer.render();
+    }
 }

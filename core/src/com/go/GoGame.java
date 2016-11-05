@@ -10,23 +10,23 @@ public class GoGame extends Game {
 	SpriteBatch batch;
 
 	@Override
-	public void create () {
+	public void create() {
 		batch = new SpriteBatch();
 		Assets.load();
 		setScreen(new GameScreen(this));
 	}
 
 	@Override
-	public void render () {
+	public void render() {
 		super.render();
 	}
 
 	@Override
-	public void dispose () {
+	public void dispose() {
 		batch.dispose();
 	}
 
-	public static int flipYAxis (int y) {
+	public static int flipYAxis(int y) {
 		return SCREEN_HEIGHT - y;
 	}
 }
