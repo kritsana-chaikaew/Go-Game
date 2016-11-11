@@ -34,18 +34,11 @@ public class Input extends InputAdapter {
     }
 
     public void onClick(int row, int column) {
-        if (row >= leftPanel.getX() / Block.BLOCK_SIZE
-                && row < board.getX() / Block.BLOCK_SIZE
-                && column < Panel.PANEL_HEIGHT) {
+        if (isClickOnLeftPanel(row, column)) {
             clickOnPanel(leftPanel, row, column);
-        } else if (row >= board.getX() / Block.BLOCK_SIZE
-                && row < (board.getX() / Block.BLOCK_SIZE) + Board.BOARD_SIZE
-                && column < Board.BOARD_SIZE) {
+        } else if (isClickOnBoard(row, column)) {
             clickOnBoard(row - board.getX() / Block.BLOCK_SIZE, column);
-        } else if (row >= rightPanel.getX() / Block.BLOCK_SIZE
-                && row < (rightPanel.getX() / Block.BLOCK_SIZE)
-                    + Panel.PANEL_WIDHT
-                && column < Panel.PANEL_HEIGHT) {
+        } else if (isClickOnRightPanel(row, column)) {
             clickOnPanel(rightPanel, row - rightPanel.getX()
                 / Block.BLOCK_SIZE, column);
         } else {
@@ -53,21 +46,46 @@ public class Input extends InputAdapter {
         }
     }
 
+    public boolean isClickOnRightPanel(int row, int column) {
+        return  row >= rightPanel.getX() / Block.BLOCK_SIZE
+                && row < (rightPanel.getX() / Block.BLOCK_SIZE)
+                    + Panel.PANEL_WIDHT
+                && column < Panel.PANEL_HEIGHT;
+    }
+
+    public boolean isClickOnLeftPanel(int row, int column) {
+        return  row >= leftPanel.getX() / Block.BLOCK_SIZE
+                && row < board.getX() / Block.BLOCK_SIZE
+                && column < Panel.PANEL_HEIGHT;
+    }
+
+    public boolean isClickOnBoard(int row, int column) {
+        return  row >= board.getX() / Block.BLOCK_SIZE
+                && row < (board.getX() / Block.BLOCK_SIZE) + Board.BOARD_SIZE
+                && column < Board.BOARD_SIZE;
+    }
+
     public void clickOnBoard(int row, int column) {
-        if (selectedTroop != null
-                && board.getTroopAt(row, column).hasLayer(Troop.EMPTY_TROOP)) {
+        if (selectedTroop != null && isNoTroopAt(row, column)) {
             board.setTroopAt(selectedTroop, row, column);
             board.setStoneAt(stone, row, column);
 
-            if (selectedTroop.hasLayer(Troop.SWORDMAN)) {
-                lastClickPanel.currentSwordMan--;
-            } else if (selectedTroop.hasLayer(Troop.BOWMAN)) {
-                lastClickPanel.currentBowMan--;
-            } else if (selectedTroop.hasLayer(Troop.GUARDIAN)) {
-                lastClickPanel.currentGuardian--;
-            }
-
+            calculateCurrentTroop();
             clearSelection();
+        }
+    }
+
+    public boolean isNoTroopAt(int row, int column) {
+        return board.getTroopAt(row, column).hasLayer(Troop.EMPTY_TROOP);
+    }
+
+    public void calculateCurrentTroop() {
+        if (selectedTroop.hasLayer(Troop.SWORDMAN)) {
+            lastClickPanel.currentSwordMan--;
+        } else if (selectedTroop.hasLayer(Troop.BOWMAN)) {
+            lastClickPanel.currentBowMan--;
+        } else if (selectedTroop.hasLayer(Troop.GUARDIAN)) {
+            lastClickPanel.currentGuardian--;
         }
     }
 
