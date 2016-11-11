@@ -77,6 +77,11 @@ public class BoardRenderer {
     }
 
     public void renderTroopLayer (TroopBlock troopBlock) {
+        drawTroopImage(troopBlock);
+        drawTroopHp(troopBlock);
+    }
+
+    public void drawTroopImage(TroopBlock troopBlock) {
         int row = troopBlock.getRow();
         int column = troopBlock.getColumn();
 
@@ -87,6 +92,11 @@ public class BoardRenderer {
         } else if (troopBlock.hasLayer(Troop.GUARDIAN)) {
             drawBlock(Assets.shieldImage, row, column);
         }
+    }
+
+    public void drawTroopHp(TroopBlock troopBlock) {
+        int row = troopBlock.getRow();
+        int column = troopBlock.getColumn();
 
         if (!troopBlock.hasLayer(Troop.EMPTY_TROOP)) {
             if (troopBlock.getHP() > 9) {
@@ -99,6 +109,5 @@ public class BoardRenderer {
                     28, 38, Color.RED);
             }
         }
-
     }
 }
